@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Wichtig: Titel anpassen (Der Titel wird im Browser-Tab angezeigt) -->
+    <title>Meine Geschichte</title>
+
+    <link rel="stylesheet" href="styles.css"> 
+
+    <!-- Wichtig: Favicon anpassen (Das Favicon wird im Browser-Tab angezeigt) -->
+    <link rel="icon" type="image/x-con" href="img/favicon.png">
+  </head>
+  <body>
+
+    <!-- In dieser Überschrift (mit Behälter id="header") wird kein Inhalt durch JavaScript angepasst-->
+    <div id="header" class="container">
+      <h1 id="main-title">Meine Geschichte &#127930;</h1>
+    </div>
+
+    <!-- Dieser Behälter enthält alle Informationen zur Story und wird laufend angepasst. -->
+    <!-- Der Story-Container enthält einen "Spacer" und einen "Image-Container"-->
+
+    <!-- Im "Spacer" sind die Texte und Buttons vorhanden und im "Image-Container" die Bilder-->
+    <div id="story-container" class="container">
+
+      <div class="spacer">
+
+        <!-- Der Text der Story wird hier dynamisch durch JavaScript angepasst -->
+        <!-- Alle Texte werden hier dynamisch durch JavaScript und geladen -->
+        <div id="text-container">
+          Einleitung Geschichte Text
+        </div>
+
+        <!-- Der Start-Button, um die Geschichte zu starten -->
+        <div id="start-button-holder">
+          <button id="start-button">Abenteuer beginnen</button>
+        </div>
+
+        <!-- HTML "Behälter" für Buttons und die Timer-Bar -->
+        <!-- Die ID Attribute dieser Elemente sind wichtig, damit kann man sie später in JavaScript ansprechen-->
+        <div id="decision-container">
+          <div id="buttons-and-inputs"></div>
+          <div id="timer-container"></div>
+        </div>
+
+      </div>
+
+      <!-- Die Bilder die während des Spiels angezeigt werden -->
+      <!-- Das Startbild muss hier verändert werden -->
+      <div id="image-container">
+        <img id="story-image" src="img/Creeper.jpg" alt="">
+      </div>
+
+    </div>
+
+  <script src="script.js"></script> 
+
+  </body>
+</html>
