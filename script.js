@@ -214,14 +214,90 @@ const story = {
         
       ],
       image: "img/weihnachtsbaumBild.jpg",
-      hasTimer: false,
+      hasTimer: true,
       next: [
         { key: "ziel_tod_2", label: "weiter" }
       ]
-      
-    }
+    },
 
+    geräusch_1: {
+      id: "geräusch_1",
+      text: ["will herausfinden was ihm die ganze zeit verfolgt. Bleibt stehen"
     
+      ],
+      image: "img/weihnachtsbaumBild.jpg",
+      hasTimer: false,
+      next: [
+        { key: "geräusch_2", label: "weiter" }
+      ]
+    },
+
+    geräusch_2: {
+      id: "geräusch_2",
+      text: ["erreicht Höhle"
+        
+        
+      ],
+      image: "img/weihnachtsbaumBild.jpg",
+      hasTimer: false,
+      next: [
+        { key: "geräusch_weg_1", label: "Weg gehen" },
+        {key: "geräusch_betreten_1", label: "betreten"}
+      ],
+      },
+
+    geräusch_weg_1: {
+      id: "geräusch_weg_1",
+      text: ["sieht wieder Wegweiser",
+        "...geht links..."
+       
+        
+      ],
+      image: "img/weihnachtsbaumBild.jpg",
+      hasTimer: false,
+      next: [
+        { key: "geräusch_weg_2", label: "links" }
+      ],
+    },
+    geräusch_weg_2: {
+      id: "geräusch_weg_2",
+      text: ["erreicht untere Hütte"
+        
+        
+      ],
+      image: "img/weihnachtsbaumBild.jpg",
+      hasTimer: false,
+      next: [
+        { key: "geräusch_weg_3", label: "weiter hinab" },
+      ],
+      },
+      
+ geräusch_weg_3: {
+      id: "geräusch_weg_3",
+      text: ["lauft runter. sieht licht dorf. hört <<Halt>>" ]
+      ,
+      image: "img/weihnachtsbaumBild.jpg",
+      hasTimer: false,
+      next: [
+        { key: "ziel_5", label: "wegrennen" },
+        {key: "geräusch_umdrehen_1", label:"umdrehen"}
+      ],
+      },
+
+
+    geräusch_umdrehen_1: {
+      id: "geräusch_umdrehen_1",
+      text: ["sieht mann. Beschleunigt",
+        "...ist wütend...",
+        "...hält Messer..."
+        
+      ],
+      image: "img/weihnachtsbaumBild.jpg",
+      hasTimer: true,
+      next: [
+         { key: "ziel_tod_8", label: "weiter" }
+      ],
+      },
   };
  
  // timer & schiessen fragen 
@@ -445,7 +521,7 @@ startButton.addEventListener("click", function(){
     document.getElementById("start-button-holder").style.display = "none";
 
     // Die Geschichte beginnt
-    nextStory("links_2");
+    nextStory("introduction");
 });
 
 // bei nextStory ("introduction fur am start zu beginnen")
