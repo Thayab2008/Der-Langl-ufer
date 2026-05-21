@@ -5,6 +5,7 @@ const buttonsAndInputs = document.getElementById("buttons-and-inputs");
 const timerContainer = document.getElementById("timer-container");
 const imageHolder = document.getElementById("story-image");
 const startButton = document.getElementById("start-button");
+const lampButton = document.getElementById("lampButton");
 
 // In dieser Variable wird der Timer gespeichert, damit wir ihn auch wieder löschen können, falls der Benutzer rechtzeitig eine Entscheidung trifft.
 let timerVariable;
@@ -13,6 +14,10 @@ let timerTime = 10000; // Zeit in Millisekunden, die der Benutzer für eine Ents
 let useTypeWriterEffect = false; // Hier kann eingestellt werden, ob der Type-Writer Effekt verwendet werden soll oder nicht. Falls nicht, wird der Text direkt angezeigt.
 let typeWriterSpeed = 3; // Hier kann die Geschwindigkeit des Type-Writer Effekts eingestellt werden (aktuell 3 Millisekunden pro Buchstabe)
 let textDelay = 2000; // Hier kann die Verzögerung zwischen den Textabschnitten eingestellt werden (aktuell 2000 Millisekunden = 2 Sekunden)
+let hasLamp = false
+let BatteryLife = 5
+
+
 
 /**
  * Die Story-Datenstruktur
@@ -29,53 +34,28 @@ const story = {
     introduction: {
       id: "introduction",
       text: [
-        "Einleitungsgescshichte.",
+        "Einleitungsgeschichte.",
         "xxxx",
         "xxxx."
       ],
       hasTimer: false,
+      hasLamp:false,
       image: "img/Flur_Eingang.webp",
       next: [
         { key: "start_1", label: "Weiter" }
       ]
     },
   
-    eingangKantiOlten: {
-      id: "eingangKantiOlten",
-      text: [
-        "Ist es heute an der Zeit eine Band zu gründen?",
-        "Du bist dir nicht ganz sicher, und überlegst ob du erstmal in den grossen oder kleinen Trakt gehen sollst."
-      ],
-      hasTimer: true,
-      image: "img/kantiolten.jpg",
-      next: [
-        { key: "start_1", label: "weiter" },
-        { key: "kleinerTrakt", label: "In den kleinen Trakt" }
-      ]
-    },
+    
   
     start_1: {
       id: "start_1",
       text: ["langläufer hört ein geräusch wacht auf und sieht nichts."],
       hasTimer: false,
+      hasLamp:false,
       next: [
         { key: "start_2", label: "Weiter" }
         
-      ]
-    },
-  
-    kleinerTrakt: {
-      id: "kleinerTrakt",
-      text: ["Der kleine Trakt ist dir allein schon wegen der Treppenanzahl sympathischer als der grosse Trakt.",
-        "Wie haben eigentlich die Beatles ihre Band gegründet?",
-        "Ist ja eigentlich egal, du könntest hier einfach mal herumfragen und deine Jazz-Band gründen.",
-        "Oder willst du alternativ deine Geschichtslehrerin fragen, ob sie jemanden kennt?"
-      ],
-      hasTimer: true,
-      image: "img/kleinerTrakt.jpg",
-      next: [
-        { key: "bandGruenden", label: "Geschichtslehrperson fragen" },
-        { key: "brawlStarsSpielen", label: "Herumfragen" }
       ]
     },
 
@@ -87,12 +67,15 @@ const story = {
         "xxxxx"
       ],
       hasTimer: false,
+      hasLamp:false,
       image: "img/christmasBand.jpeg",
       next: [
         { key: "weg_1", label: "Weg hinab" },
         { key: "hütte_1", label: "zur Alphütte" }
       ]
     },
+
+
   
     logarithmusGleichungen: {
       id: "logarithmusGleichungen",
@@ -150,6 +133,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "weg_2", label: "Weiter" }
         
@@ -165,6 +149,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "links_1", label: "Links." },
         { key: "rechts_1", label: "Rechts." },
@@ -178,6 +163,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "links_2", label: "Weiter" }
       ]
@@ -188,6 +174,7 @@ const story = {
       text: ["Dreht sich um, \"wer ist da\" "],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "hinab_1", label: "Weiter hinab" },
         { key: "geräusch_1", label: "Geräusch folgen" }
@@ -200,6 +187,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "ziel", label: "Wegrennen" },
         { key: "umdrehen_1", label: "Umdrehen" }
@@ -215,6 +203,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: true,
+      hasLamp: false,
       next: [
         { key: "ziel_tod_2", label: "weiter" }
       ]
@@ -227,6 +216,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "geräusch_2", label: "weiter" }
       ]
@@ -240,6 +230,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "geräusch_weg_1", label: "Weg gehen" },
         {key: "geräusch_betreten_1", label: "betreten"}
@@ -255,6 +246,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "geräusch_weg_2", label: "links" }
       ],
@@ -267,6 +259,7 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "geräusch_weg_3", label: "weiter hinab" },
       ],
@@ -278,6 +271,7 @@ const story = {
       ,
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
+      hasLamp: false,
       next: [
         { key: "ziel_5", label: "wegrennen" },
         {key: "geräusch_umdrehen_1", label:"umdrehen"}
@@ -294,10 +288,127 @@ const story = {
       ],
       image: "img/weihnachtsbaumBild.jpg",
       hasTimer: true,
+      hasLamp: false,
       next: [
          { key: "ziel_tod_8", label: "weiter" }
       ],
       },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ hütte_1: {
+      id: "hütte_1",
+      text: ["Tür öffnet sich bei Hütte",
+        "Tritt ein und findet Taschenlampe",
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      BatteryLife:5,
+      next: [
+        { key: "weg_1.1", label: "züruck"},
+        { key: "haus_durchsuchen_1", label: "Haus durchsuchen"}
+      ]
+      },
+
+   haus_durchsuchen_1: {
+      id: "haus_durchsuchen_1",
+      text: ["findet Gewehr",
+        "xxx",
+        "xxxx",
+        "xxxxx"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      BatteryLife:5,
+
+      next: [
+        { key: "weg_1.2", label: "zurück" },
+        { key: "kamin_1", label: "Kamin anzünden" }
+      ]
+      },
+
+   kamin_1: {
+      id: "kamin_1",
+      text: ["legt Feuerzeug aufs Holz",
+        "xxx",
+        "xxxx",
+        "xxxxx"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      BatteryLife:5,
+      next: [
+        { key: "kamin_2", label: "weiter" }
+      ]
+      
+      },
+ kamin_2: {
+      id: "kamin_2",
+      text: ["hört Geräusch und wächt auf",
+        "Schlafzimmerfenster von Wind offen",
+        "xxxx",
+        "xxxxx"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      BatteryLife:5,
+
+      next: [
+        { key: "kamin_3", label: "Schliesst Fenster" },
+        {key: "kamin_anzünden_1", label: "Kamin anzünden"}
+      ]
+      
+      },
+ kamin_3: {
+      id: "kamin_3",
+      text: ["Er ist müde aber besorgt",
+        "xxxx",
+        "xxxxx"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      BatteryLife:5,
+      next: [
+        { key: "kamin_3", label: "Schliesst Fenster" },
+        {key: "kamin_anzünden_1", label: "Kamin anzünden"}
+      ]
+      
+      },
+
   };
  
  // timer & schiessen fragen 
@@ -507,8 +618,15 @@ async function nextStory(key) {
             displayTimer();
         }
         
-    }
+    if (node.input) {
+        showInput(node.input);
+
+       
 }
+            
+        }
+    }
+
 
 
 /**
@@ -516,12 +634,28 @@ async function nextStory(key) {
  */
 startButton.addEventListener("click", function(){
 
-  console.log("STARTBUTTON KLICK WURDE AUSGEFÜHRT")
+    console.log("STARTBUTTON KLICK WURDE AUSGEFÜHRT")
     // Der Inhalt mit dem Start Button soll verschwinden
     document.getElementById("start-button-holder").style.display = "none";
 
-    // Die Geschichte beginnt
-    nextStory("introduction");
 });
 
+
+    // Die Geschichte beginnt
+lampButton.addEventListener("click", function(){
+  console.log("Lampe leuchtet");
+  if (hasLamp === true && BatteryLife > 0) {
+    document.getElementById("lampButton").style.display = "block";
+  } else {
+    document.getElementById("lampButton").style.display = "";
+  }
+//Lampbutton funktion löschen damit es funktioniert
+});
+
+
+
+
+
+
+nextStory("introduction");
 // bei nextStory ("introduction fur am start zu beginnen")
