@@ -6,6 +6,7 @@ const timerContainer = document.getElementById("timer-container");
 const imageHolder = document.getElementById("story-image");
 const startButton = document.getElementById("start-button");
 const lampButton = document.getElementById("lampButton");
+const gunButton = document.getElementById("gunButton");
 
 // In dieser Variable wird der Timer gespeichert, damit wir ihn auch wieder löschen können, falls der Benutzer rechtzeitig eine Entscheidung trifft.
 let timerVariable;
@@ -13,9 +14,46 @@ let timerTime = 10000; // Zeit in Millisekunden, die der Benutzer für eine Ents
 
 let useTypeWriterEffect = false; // Hier kann eingestellt werden, ob der Type-Writer Effekt verwendet werden soll oder nicht. Falls nicht, wird der Text direkt angezeigt.
 let typeWriterSpeed = 3; // Hier kann die Geschwindigkeit des Type-Writer Effekts eingestellt werden (aktuell 3 Millisekunden pro Buchstabe)
-let textDelay = 2000; // Hier kann die Verzögerung zwischen den Textabschnitten eingestellt werden (aktuell 2000 Millisekunden = 2 Sekunden)
+let textDelay = 20; // Hier kann die Verzögerung zwischen den Textabschnitten eingestellt werden (aktuell 2000 Millisekunden = 2 Sekunden)
 let hasLamp = false
 let BatteryLife = 5
+let lampHandlerAttached = false;let hasGun = false;
+let gunHandlerAttached = false;
+let gunShots = 3;
+
+function lampClickHandler() {
+  if (!hasLamp) return;
+
+  if (BatteryLife <= 0) {
+    alert("Die Batterie ist leer.");
+    lampButton.disabled = true;
+    return;
+  }
+
+  // Batterie verringern
+  BatteryLife--;
+
+  // Aktualisiere Batterie-Anzeige
+  const batterySpan = document.getElementById("battery-count");
+  if (batterySpan) batterySpan.innerText = BatteryLife;
+
+  // Zusätzliche Information anzeigen
+  const info = document.createElement("p");
+  info.textContent = `Taschenlampe benutzt. Batterie verbleibend: ${BatteryLife}`;
+  textContainer.appendChild(info);
+
+  if (BatteryLife <= 0) lampButton.disabled = true;
+}
+
+function gunClickHandler() {
+  if (!hasGun) return;
+  if (gunShots <= 0) {
+    alert("Du hast keine Schüsse mehr!");
+    return;
+  }
+  gunShots--;
+  nextStory("gun_action");
+}
 
 
 
@@ -41,9 +79,7 @@ const story = {
       hasTimer: false,
       hasLamp:false,
       image: "img/Flur_Eingang.webp",
-      next: [
-        { key: "start_1", label: "Weiter" }
-      ]
+      
     },
   
     
@@ -353,6 +389,7 @@ const story = {
       ],
       hasTimer: false,
       hasLamp:true,
+      hasGun:true,
       BatteryLife:5,
 
       next: [
@@ -401,6 +438,7 @@ const story = {
       ],
       hasTimer: false,
       hasLamp:true,
+      canUseGun:true,
       BatteryLife:5,
       next: [
         { key: "kamin_3", label: "Schliesst Fenster" },
@@ -408,6 +446,15 @@ const story = {
       ]
       
       },
+
+  gun_action: {
+    id: "gun_action",
+    text: ["Du ziehst das Gewehr und schießt ab!", "xxxx", "xxxxx"],
+    hasTimer: false,
+    next: [
+      { key: "kamin_3", label: "Zurück" }
+    ]
+  },
 
   };
  
@@ -577,6 +624,10 @@ async function nextStory(key) {
     timerContainer.innerHTML = "";
     clearTimeout(timerVariable);
 
+    // Start-Button nur in der Einleitung anzeigen
+    const startHolder = document.getElementById("start-button-holder");
+    if (startHolder) startHolder.style.display = (node.id === "introduction") ? "" : "none";
+
 
     // 1. Bild anzeigen
     if (node.image){
@@ -599,6 +650,52 @@ async function nextStory(key) {
         } else {
             await displayTextNormally(text, textIdx == node.text.length-1);
         }
+    }
+
+    // Falls dieser Knoten eine Lampe bereitstellt, aktivieren wir den Lampen-Button
+    if (node.hasLamp) {
+      hasLamp = true;
+      if (lampButton) {
+        lampButton.style.display = "flex";
+        const batterySpan = document.getElementById("battery-count");
+        if (batterySpan) batterySpan.innerText = BatteryLife;
+        lampButton.disabled = BatteryLife <= 0;
+        // Listener nur einmal anhängen, wenn noch nicht angehängt
+        if (!lampHandlerAttached) {
+          lampButton.addEventListener("click", lampClickHandler);
+          lampHandlerAttached = true;
+        }
+      }
+    } else {
+      // Verstecke Lampen-Button, bis man wieder eine Lampe hat
+      if (lampButton) lampButton.style.display = "none";
+    }
+
+    // Falls dieser Knoten ein Gewehr bereitstellt, speichern wir es
+    if (node.hasGun) {
+      hasGun = true;
+    }
+
+    // Gewehr-Button anzeigen, wenn man ein Gewehr hat (bleibt dann sichtbar)
+    if (hasGun) {
+      if (gunButton) {
+        gunButton.style.display = "flex";
+        // Button ist nur aktivierbar, wenn an diesem Ort verwendbar und noch Schüsse vorhanden
+        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0;
+        // Listener nur einmal anhängen, wenn noch nicht angehängt
+        if (!gunHandlerAttached) {
+          gunButton.addEventListener("click", gunClickHandler);
+          gunHandlerAttached = true;
+        }
+      }
+    } else {
+      // Verstecke Gewehr-Button, bis man ein Gewehr hat
+      if (gunButton) gunButton.style.display = "none";
+    }
+
+    // Falls man das Gewehr an diesem Knoten einsetzen kann
+    if (node.canUseGun && hasGun) {
+      displayDecisionButtons([{ key: "gun_action", label: "Mit Gewehr schießen" }]);
     }
 
     // 3. Benutzereingabe?
@@ -635,22 +732,13 @@ async function nextStory(key) {
 startButton.addEventListener("click", function(){
 
     console.log("STARTBUTTON KLICK WURDE AUSGEFÜHRT")
-    // Der Inhalt mit dem Start Button soll verschwinden
-    document.getElementById("start-button-holder").style.display = "none";
+  // Zum nächsten Story-Punkt wechseln
+  nextStory("start_1");
 
 });
 
 
-    // Die Geschichte beginnt
-lampButton.addEventListener("click", function(){
-  console.log("Lampe leuchtet");
-  if (hasLamp === true && BatteryLife > 0) {
-    document.getElementById("lampButton").style.display = "block";
-  } else {
-    document.getElementById("lampButton").style.display = "";
-  }
-//Lampbutton funktion löschen damit es funktioniert
-});
+    // Die Lampe wird beim Betreten eines Knotens mit hasLamp aktiviert (Listener wird dort angebracht)
 
 
 
