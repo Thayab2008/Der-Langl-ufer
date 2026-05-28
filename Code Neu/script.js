@@ -441,10 +441,40 @@ const story = {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "kamin_3", label: "Schliesst Fenster" },
-        {key: "kamin_anzünden_1", label: "Kamin anzünden"}
+        { key: "schlafen_1", label: "schlafen" },
+        {key: "wach_1", label: "wach bleiben"}
       ]
       
+      },
+
+  schlafen_1: {
+      id: "schlafen_1",
+      text: ["wächt in der Nacht auf",
+        "Feuer ausgebrannt",
+        "dunkel"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:true,
+      BatteryLife:5,
+      next: [
+        { key: "schlafen_2", label: "weiter" },
+      ]
+        } ,
+
+  schlafen_2: {
+      id: "schlafen_2",
+      text: ["Fremde Stimme: ‚Schlaf gut‘",
+        "Spürt Schmerz in Brust",
+        "xxxxx"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:true,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_11", label: "weiter" }
+      ]
       },
 
   gun_action: {
@@ -456,19 +486,18 @@ const story = {
     ]
   },
 
-  };
  
  // timer & schiessen fragen 
 
 /**
  * Diese Funktion zeigt den Text normal an, ohne Type-Writer Effekt.
  */
-async function displayTextNormally(text, isLastText){
-    const p = document.createElement("p");
+async function: displayTextNormally(text, isLastText){
+    const: p = document.createElement("p");
     p.innerText = text;
     textContainer.appendChild(p);
 
-    // Falls der letzte Textabschnitt erreicht ist, soll kein Platzhalter mehr angezeigt werden und die Funktion soll direkt "beendet" werden, damit die nächsten Schritte (Buttons anzeigen, etc.) ausgeführt werden können.
+    // Falls der letzte Textabschnitt erreicht ist, ...
     if(isLastText){
         return;
     }
@@ -477,7 +506,6 @@ async function displayTextNormally(text, isLastText){
     placeHolder.innerText = "...";
     textContainer.appendChild(placeHolder);
 
-    // Wir geben ein Versprechen (Promise) zurück, das nach X Millisekunden eingelöst wird
     return new Promise((resolve) => {
         setTimeout(() => { 
           resolve();
@@ -485,6 +513,7 @@ async function displayTextNormally(text, isLastText){
         }, textDelay);
     });
 }
+
 
 /**
  * Diese Funktion wird als Type-Writer Effekt verwendet
@@ -701,28 +730,18 @@ async function nextStory(key) {
     // 3. Benutzereingabe?
     if (node.input) {
         showInput(node.input);
-
-        if(node.hasTimer){
-            displayTimer();
-        }
     }
 
     // 4. Normale Entscheidungen anzeigen
     if (node.next) {
         displayDecisionButtons(node.next);
-
-        if(node.hasTimer){
-            displayTimer();
-        }
-        
-    if (node.input) {
-        showInput(node.input);
-
-       
-}
-            
-        }
     }
+
+    // Timer starten, falls dieser Knoten einen Timer nutzt
+    if (node.hasTimer) {
+        displayTimer();
+    }
+}
 
 
 
