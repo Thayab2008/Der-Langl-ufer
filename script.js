@@ -652,9 +652,13 @@ async function nextStory(key) {
         }
     }
 
-    // Falls dieser Knoten eine Lampe bereitstellt, aktivieren wir den Lampen-Button
+    // Falls dieser Knoten eine Lampe bereitstellt, merken wir uns, dass der Spieler eine Lampe hat
     if (node.hasLamp) {
       hasLamp = true;
+    }
+
+    // Lampen-Button wird angezeigt, sobald der Spieler die Lampe besitzt
+    if (hasLamp) {
       if (lampButton) {
         lampButton.style.display = "flex";
         const batterySpan = document.getElementById("battery-count");
@@ -667,7 +671,7 @@ async function nextStory(key) {
         }
       }
     } else {
-      // Verstecke Lampen-Button, bis man wieder eine Lampe hat
+      // Verstecke Lampen-Button, bis man eine Lampe hat
       if (lampButton) lampButton.style.display = "none";
     }
 

@@ -15,11 +15,15 @@ let timerTime = 10000; // Zeit in Millisekunden, die der Benutzer für eine Ents
 let useTypeWriterEffect = false; // Hier kann eingestellt werden, ob der Type-Writer Effekt verwendet werden soll oder nicht. Falls nicht, wird der Text direkt angezeigt.
 let typeWriterSpeed = 3; // Hier kann die Geschwindigkeit des Type-Writer Effekts eingestellt werden (aktuell 3 Millisekunden pro Buchstabe)
 let textDelay = 20; // Hier kann die Verzögerung zwischen den Textabschnitten eingestellt werden (aktuell 2000 Millisekunden = 2 Sekunden)
-let hasLamp = false
-let BatteryLife = 5
-let lampHandlerAttached = false;let hasGun = false;
+let hasLamp = false;
+let BatteryLife = 5;
+let lampHandlerAttached = false;
+let hasGun = false;
 let gunHandlerAttached = false;
 let gunShots = 3;
+let currentStoryKey = null;
+let kamin2LampUsed = false;
+let schlafen1LampUsed = false;
 
 function lampClickHandler() {
   if (!hasLamp) return;
@@ -42,6 +46,26 @@ function lampClickHandler() {
   info.textContent = `Taschenlampe benutzt. Batterie verbleibend: ${BatteryLife}`;
   textContainer.appendChild(info);
 
+  if (currentStoryKey === "kamin_2") {
+    const rehInfo = document.createElement("p");
+    rehInfo.textContent = "sieht reh";
+    textContainer.appendChild(rehInfo);
+    kamin2LampUsed = true;
+    if (gunButton && hasGun) {
+      gunButton.disabled = gunShots <= 0;
+    }
+  }
+
+  if (currentStoryKey === "schlafen_1") {
+    const mannInfo = document.createElement("p");
+    mannInfo.textContent = "sieht mann mit messer in hand";
+    textContainer.appendChild(mannInfo);
+    schlafen1LampUsed = true;
+    if (gunButton && hasGun) {
+      gunButton.disabled = gunShots <= 0;
+    }
+  }
+
   if (BatteryLife <= 0) lampButton.disabled = true;
 }
 
@@ -51,8 +75,16 @@ function gunClickHandler() {
     alert("Du hast keine Schüsse mehr!");
     return;
   }
+
   gunShots--;
-  nextStory("gun_action");
+
+  if (currentStoryKey === "kamin_2") {
+    nextStory("schiessen_1");
+  } else if (currentStoryKey === "schlafen_1") {
+    nextStory("schlafen_schiessen_1");
+  } else {
+    nextStory("gun_action");
+  }
 }
 
 
@@ -422,6 +454,7 @@ const story = {
       ],
       hasTimer: false,
       hasLamp:true,
+      canUseGun:true,
       BatteryLife:5,
 
       next: [
@@ -477,6 +510,77 @@ const story = {
       ]
       },
 
+  schlafen_schiessen_1: {
+      id: "schlafen_schiessen_1",
+      text: ["Er rollt zur Seite, nimmt Gewehr und zündet ab -- Mann stirbt"],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "messer_1", label: "Weiter" }
+      ]
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+  schiessen_1: {
+      id: "schiessen_1",
+      text: ["Er schiesst und trifft",
+        "xxx",
+        "xxxxx"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:true,
+      BatteryLife:5,
+      next: [
+        { key: "drinnen_1", label: "drinnen bleiben" },
+         { key: "drausen_1", label: "rausgehen" }
+      ]
+      },
+      
+
+
+
+
+
+
+messer_1: {
+      id: "messer_1",
+      text: ["Er hat Angst und hat Schuldgefühle",
+        "Es wird morgen",
+        "als er sich umdreht ist die Leiche weg"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:true,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_12", label: "weiter" }
+        
+      ]
+      },
+      
+
+
+
+
+
+
   gun_action: {
     id: "gun_action",
     text: ["Du ziehst das Gewehr und schießt ab!", "xxxx", "xxxxx"],
@@ -484,21 +588,21 @@ const story = {
     next: [
       { key: "kamin_3", label: "Zurück" }
     ]
-  },
-
+  }
+};
  
  // timer & schiessen fragen 
 
 /**
  * Diese Funktion zeigt den Text normal an, ohne Type-Writer Effekt.
  */
-async function: displayTextNormally(text, isLastText){
-    const: p = document.createElement("p");
+async function displayTextNormally(text, isLastText) {
+    const p = document.createElement("p");
     p.innerText = text;
     textContainer.appendChild(p);
 
     // Falls der letzte Textabschnitt erreicht ist, ...
-    if(isLastText){
+    if (isLastText) {
         return;
     }
 
@@ -507,7 +611,7 @@ async function: displayTextNormally(text, isLastText){
     textContainer.appendChild(placeHolder);
 
     return new Promise((resolve) => {
-        setTimeout(() => { 
+        setTimeout(() => {
           resolve();
           placeHolder.remove();
         }, textDelay);
@@ -641,7 +745,7 @@ function displayTimer(){
  * @param {*} key Der Key des nächsten Story-Punkts
  */
 async function nextStory(key) {   
-  
+  currentStoryKey = key;
     // In der Variable "node" wird der aktuelle Story-Punkt gespeichert, damit wir einfacher darauf zugreifen können.
     // Bsp: key = "bahnhof" -> node = story["bahnhof"] -> node.text, node.image, node.next, etc. werden vom Bahnhof geladen
     const node = story[key];
@@ -681,9 +785,13 @@ async function nextStory(key) {
         }
     }
 
-    // Falls dieser Knoten eine Lampe bereitstellt, aktivieren wir den Lampen-Button
+    // Falls dieser Knoten eine Lampe bereitstellt, merken wir uns, dass der Spieler eine Lampe hat
     if (node.hasLamp) {
       hasLamp = true;
+    }
+
+    // Lampen-Button wird angezeigt, sobald der Spieler die Lampe besitzt
+    if (hasLamp) {
       if (lampButton) {
         lampButton.style.display = "flex";
         const batterySpan = document.getElementById("battery-count");
@@ -696,7 +804,7 @@ async function nextStory(key) {
         }
       }
     } else {
-      // Verstecke Lampen-Button, bis man wieder eine Lampe hat
+      // Verstecke Lampen-Button, bis man eine Lampe hat
       if (lampButton) lampButton.style.display = "none";
     }
 
@@ -710,7 +818,7 @@ async function nextStory(key) {
       if (gunButton) {
         gunButton.style.display = "flex";
         // Button ist nur aktivierbar, wenn an diesem Ort verwendbar und noch Schüsse vorhanden
-        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0;
+        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0 || (currentStoryKey === "kamin_2" && !kamin2LampUsed);
         // Listener nur einmal anhängen, wenn noch nicht angehängt
         if (!gunHandlerAttached) {
           gunButton.addEventListener("click", gunClickHandler);
@@ -720,11 +828,6 @@ async function nextStory(key) {
     } else {
       // Verstecke Gewehr-Button, bis man ein Gewehr hat
       if (gunButton) gunButton.style.display = "none";
-    }
-
-    // Falls man das Gewehr an diesem Knoten einsetzen kann
-    if (node.canUseGun && hasGun) {
-      displayDecisionButtons([{ key: "gun_action", label: "Mit Gewehr schießen" }]);
     }
 
     // 3. Benutzereingabe?
