@@ -24,6 +24,8 @@ let gunShots = 3;
 let currentStoryKey = null;
 let kamin2LampUsed = false;
 let schlafen1LampUsed = false;
+let pendingStoryText = [];
+let rausgehen3LampUsed = false;
 
 function lampClickHandler() {
   if (!hasLamp) return;
@@ -66,6 +68,32 @@ function lampClickHandler() {
     }
   }
 
+  if (currentStoryKey === "rausgehen_1") {
+    pendingStoryText = ["Er sieht totes Reh mit schlimmen Schnittwunden am Walndrand"];
+    nextStory("verbarikadieren_1");
+    return;
+
+  
+  }
+  if (currentStoryKey === "rausgehen_4") {
+    pendingStoryText = ["sieht Mann voll mit blutigen Kleidern und Messer"];
+    nextStory("ziel");
+    return;
+
+  
+  }
+
+  if (currentStoryKey === "rausgehen_3") {
+    const mannInfo = document.createElement("p");
+    mannInfo.textContent = "sieht Mann voll mit blutigen Kleidern und Messer";
+    textContainer.appendChild(mannInfo);
+    rausgehen3LampUsed = true;
+    if (gunButton && hasGun) {
+      gunButton.disabled = gunShots <= 0;
+    }
+  }
+
+
   if (BatteryLife <= 0) lampButton.disabled = true;
 }
 
@@ -81,7 +109,9 @@ function gunClickHandler() {
   if (currentStoryKey === "kamin_2") {
     nextStory("schiessen_1");
   } else if (currentStoryKey === "schlafen_1") {
-    nextStory("schlafen_schiessen_1");
+    nextStory("schiessen_2");
+  } else if (currentStoryKey === "rausgehen_3") {
+    nextStory("rausgehen_5");
   } else {
     nextStory("gun_action");
   }
@@ -510,8 +540,8 @@ const story = {
       ]
       },
 
-  schlafen_schiessen_1: {
-      id: "schlafen_schiessen_1",
+  schiessen_2: {
+      id: "schiessen_2",
       text: ["Er rollt zur Seite, nimmt Gewehr und zündet ab -- Mann stirbt"],
       hasTimer: false,
       hasLamp:true,
@@ -524,12 +554,116 @@ const story = {
 
 
 
+  wach_1: {
+      id: "wach_1",
+      text: ["Er schaut zu dass das Feuer immer brennt",
+        "Er hört ein Schrei eines Tieres draussen"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "rausgehen_1", label: "rausgehen" },
+        {key: "verbarikadieren_1", label: "verbarikadieren"}
+      ]
+      },
+
+
+
+rausgehen_1: {
+      id: "rausgehen_1",
+      text: ["Wolken vor Mond",
+        "Es ist stockdunkel"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "rausgehen_2", label: "weiter" },
+        {key: "verbarikadieren_1", label: "verbarikadieren"}
+      ]
+      },
+
+rausgehen_2: {
+      id: "rausgehen_2",
+      text: ["Muss wohl ein Irrtum gewesen sein",
+        "get wieder rein"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "rausgehen_3", label: "weiter" }
+      ]
+      },
+rausgehen_3: {
+      id: "rausgehen_3",
+      text: ["er wird müde",
+        "Feuer wird schwächer",
+        "Tür geht auf und Mann steht dort",
+        "‚Guten Abend ist hier jemand?‘"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:true,
+      BatteryLife:5,
+      next: [
+        { key: "rausgehen_4", label: "weiter" }
+      ]
+      },
+
+rausgehen_4: {
+      id: "rausgehen_4",
+      text: ["beide reden",
+        "Er sieht den Mann fast nicht",
+        "spürt auf einmal Messerklinge in Bauch"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "ziel_13", label: "weiter" }
+      ]
+      },
+rausgehen_5: {
+      id: "rausgehen_5",
+      text: ["Er schiesst aber trifft ihn nicht",
+        "Der Mann erschrickt und rennt davon",
+        "Er verbarikadiert Hütte"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "ziel_14", label: "weiter" }
+      ]
+      },
 
 
 
 
 
 
+
+
+verbarikadieren_1: {
+      id: "verbarikadieren_1",
+      text: ["Er hat Angst",
+        "Er geht zum Kaminfeuer"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "verbarikadieren_2", label: "weiter" }
+      ]
+      },
 
 
 
@@ -549,7 +683,7 @@ const story = {
       BatteryLife:5,
       next: [
         { key: "drinnen_1", label: "drinnen bleiben" },
-         { key: "drausen_1", label: "rausgehen" }
+         { key: "draussen_1", label: "rausgehen" }
       ]
       },
       
@@ -776,12 +910,14 @@ async function nextStory(key) {
     }
 
     // 2. Text schreiben
-    for (let textIdx in node.text) {
-        const text = node.text[textIdx];
+    const nodeText = pendingStoryText.concat(node.text);
+    pendingStoryText = [];
+    for (let textIdx in nodeText) {
+        const text = nodeText[textIdx];
         if(useTypeWriterEffect){
             await displayTextWithTypeWriter(text);
         } else {
-            await displayTextNormally(text, textIdx == node.text.length-1);
+            await displayTextNormally(text, textIdx == nodeText.length-1);
         }
     }
 
@@ -818,7 +954,7 @@ async function nextStory(key) {
       if (gunButton) {
         gunButton.style.display = "flex";
         // Button ist nur aktivierbar, wenn an diesem Ort verwendbar und noch Schüsse vorhanden
-        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0 || (currentStoryKey === "kamin_2" && !kamin2LampUsed);
+        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0 || (currentStoryKey === "kamin_2" && !kamin2LampUsed) || (currentStoryKey === "rausgehen_3" && !rausgehen3LampUsed);
         // Listener nur einmal anhängen, wenn noch nicht angehängt
         if (!gunHandlerAttached) {
           gunButton.addEventListener("click", gunClickHandler);
