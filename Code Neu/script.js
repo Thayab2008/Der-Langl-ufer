@@ -79,9 +79,22 @@ function lampClickHandler() {
     pendingStoryText = ["sieht Mann voll mit blutigen Kleidern und Messer"];
     nextStory("ziel");
     return;
+  
 
   
   }
+  if (currentStoryKey === "dort_lassen_3") {
+    pendingStoryText=["nasse Spur führt zu Schlafzimmer"]
+    nextStory("wehren_2");
+    return;
+  }
+
+   if (currentStoryKey === "dort_lassen_2") {
+    pendingStoryText = ["Im Wohnzimmer ist ein Mann"];
+    nextStory("wohnzimmer_mann");
+    return;
+  }
+
 
   if (currentStoryKey === "rausgehen_3") {
     const mannInfo = document.createElement("p");
@@ -488,11 +501,15 @@ const story = {
       BatteryLife:5,
 
       next: [
-        { key: "kamin_3", label: "Schliesst Fenster" },
-        {key: "kamin_anzünden_1", label: "Kamin anzünden"}
+        { key: "kamin_3", label: "Schliesst Fenster" }
+  
       ]
       
       },
+
+  
+
+    
  kamin_3: {
       id: "kamin_3",
       text: ["Er ist müde aber besorgt",
@@ -565,7 +582,7 @@ const story = {
       BatteryLife:5,
       next: [
         { key: "rausgehen_1", label: "rausgehen" },
-        {key: "verbarikadieren_1", label: "verbarikadieren"}
+        {key: "verbarikadieren_1_1", label: "verbarikadieren"}
       ]
       },
 
@@ -665,6 +682,32 @@ verbarikadieren_1: {
       ]
       },
 
+ verbarikadieren_2: {
+      id: "verbarikadieren_2",
+      text: ["Etwas rüttelt an Tür",
+        "Stille bis zum Morgen"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_15", label: "weiter" }
+      ]
+      }, 
+      
+  verbarikadieren_1_1: {
+      id: "verbarikadieren_1_1",
+      text: ["Er verbarikadiert zur Sicherheit dass kein wildes Tier reinkommt"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "verbarikadieren_2", label: "weiter" }
+      ]
+      },    
 
 
 
@@ -683,11 +726,276 @@ verbarikadieren_1: {
       BatteryLife:5,
       next: [
         { key: "drinnen_1", label: "drinnen bleiben" },
-         { key: "draussen_1", label: "rausgehen" }
+         { key: "rausgehen_reh", label: "rausgehen" }
+      ]
+      },
+
+    drinnen_1: {
+      id: "drinnen_1",
+      text: ["Schliesst Fenster",
+        "ist am Kamin",
+        "hört ein Klopfen"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "drinnen_2", label: "öffnen" }
+      ]
+      },  
+
+    drinnen_2: {
+      id: "drinnen_2",
+      text: ["Spalt öffnet sich",
+        "Freundlicher Herr sucht Schutz vor Kälte",
+        "Er lässt ihn herein"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "drinnen_3", label: "weiter" }
+      ]
+      },  
+
+  drinnen_3: {
+      id: "drinnen_3",
+      text: ["Gast:,sah beim Aufstieg Langläufer verlaufen. Dank Schuss fand er ich her,",
+        "Langläufer erleichtert:,dachte schon ich höre Dinge"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "drinnen_4", label: "weiter" }
+      ]
+      },  
+
+drinnen_4: {
+      id: "drinnen_4",
+      text: ["Gast:,Buch bitte,",
+        "Langläufer dreht sich um -- Schlag auf Kopf"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_16", label: "weiter" }
+      ]
+      },  
+
+
+
+rausgehen_reh: {
+      id: "rausgehen_reh",
+      text: ["Reh ist tot"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "dort_lassen_1", label: "dort lassen" },
+        {key:"hütte_bringen", label:"vör Hütte bringen"}
+      ]
+      },  
+dort_lassen_1: {
+      id: "dort_lassen_1",
+      text: ["Als er zur Hütte geht sieht er fremde Fussspuren"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "dort_lassen_2", label: "weiter" }
       ]
       },
       
 
+dort_lassen_2: {
+      id: "dort_lassen_1",
+      text: [",Ist hier jemand!, ruft er",
+        "Niemand antwortet und das Feuer/Licht geht aus"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "dort_lassen_3", label: "weiter" }
+      ]
+      },
+      
+dort_lassen_3: {
+      id: "dort_lassen_3",
+      text: [",Ich weiss dass jemand hier ist !,",
+        "Er hört eine Pfütze beim Eintreten",
+        "Wahrscheinlich Schnee denkt er"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "toilette_1", label: "Toilette nachschauen" },
+        { key: "toilette_1", label: "Küche nachschauen" },
+        { key: "schlafzimmer", label: "Schlafzimmer nachschauen" }
+      ]
+      },
+
+schlafzimmer: {
+      id: "schlafzimmer",
+      text: ["sieht einen Mann",
+        "Er verbadikadiert Türe schnell"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "wehren_2", label: "weiter" }
+      ]
+      },
+
+
+toilette_1: {
+      id: "toilette_1",
+      text: ["nichts zu sehen ",
+        "Holz im Wohnzimmer knarzt",
+        "schnelle Schritte!"
+      
+      ],
+      hasTimer: true,
+      timerTime: 9000,
+      timerKey: "toilette_2",
+      startTimerBeforeText: true,
+      textDelay: 3000,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_17", label: "wehren" }
+      ]
+      },
+
+wehren_1: {
+      id: "wehren_1",
+      text: ["Schlägt mit Gewehrlauf ins dunkle - trifft",
+        "Mann mit Messer wird ohnmächtig",
+        "Er fesselt den Mann und sperrt ihn im Schlafzimmer ein"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "wehren_2", label: "weiter" }
+      ]
+      },
+
+
+wehren_2: {
+      id: "wehren_2",
+      text: ["Mann wächt auf und wirkt ängstlich",
+        "Mann:, Ich hatte nur Angst vor dem Schuss,",
+        "Er lässt ihn zur Sicherheit gefesselt und eingesperrt",
+        "Mann tobt kurz ist aber dann ruhig",
+        "Er bleibt wach bis zum Morgen um auf den Mann zu schauen"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_18", label: "weiter" }
+      ]
+      },
+
+  hütte_bringen: {
+      id: "gütte_bringen",
+      text: ["Er denkt sich er kann das Reh sicher noch gebrauchen",
+        "Möchte Küche gehen um Messer zu holen"
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "dort_lassen_1", label: "weiter" }
+      ]
+      },
+      
+
+  wohnzimmer_mann: {
+      id: "wohnzimmer_mann",
+      text: ["Der Mann sagt er hat sich verlaufen und friert"],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "wegschicken_1", label: "wegschicken" },
+        {key:"bleiben_lassen_1", label:"bleiben lassen"}
+      ]
+      },
+
+  wegschicken_1: {
+      id: "wegschicken_1",
+      text: ["Er vertraut dem Mann nicht aber schickt ihn trozdem mit seiner Taschenlampe ins Tal",
+        "Der Mann verlässt Hütte und er sichert noch einmal alle Türen und Fenster"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "wegschicken_2", label: "weiter" }
+      ]
+      },
+
+  wegschicken_2: {
+      id: "wegschicken_2",
+      text: ["Hört in der Nacht nochmals draussen und bleibt deshalb wach bis am Morgen"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_19", label: "weiter" }
+      ]
+      },
+
+   bleiben_lassen: {
+      id: "bleiben_lassen",
+      text: ["Mann bedankt sich",
+        "Mann will im Wohnzimmer mit ihm schlafen"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "erlauben", label: "erlauben" },
+        {key:"anderes_zimmer", label:"in anderes Zimmer schicken"}
+      ]
+      },
+
+      erlauben: {
+      id: "erlauben",
+      text: ["Er bleibt lange wach als er aber einschläft spürt er einen stechenden Schmerz in seiner Brust"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_20", label: "weiter" }
+      ]
+      },
 
 
 
@@ -708,6 +1016,8 @@ messer_1: {
         
       ]
       },
+
+
       
 
 
@@ -861,17 +1171,17 @@ function showInput(inputConfig){
  * Diese Funktion zeigt einen Timer an, der herunterzählt. 
  * Wenn der Timer abläuft, ohne dass der Benutzer eine Entscheidung trifft, verliert er das Spiel.
  */
-function displayTimer(){
+function displayTimer(duration = timerTime, timeoutKey = "verloren"){
     const timerBar = document.createElement("div");
     timerBar.classList.add("timer-bar");
     timerContainer.appendChild(timerBar);
 
-    timerBar.style.animation = `countdown ${timerTime/1000}s linear forwards`;
+    timerBar.style.animation = `countdown ${duration/1000}s linear forwards`;
 
     timerVariable = setTimeout(() => {
       timerBar.remove();
-      nextStory("verloren");    
-    }, timerTime); 
+      nextStory(timeoutKey);    
+    }, duration); 
 }
 
 /**
@@ -909,9 +1219,18 @@ async function nextStory(key) {
         imageHolder.src = "";
     }
 
+    if (node.hasTimer && node.startTimerBeforeText) {
+        displayTimer(node.timerTime || timerTime, node.timerKey || "verloren");
+    }
+
     // 2. Text schreiben
     const nodeText = pendingStoryText.concat(node.text);
     pendingStoryText = [];
+    const previousTextDelay = textDelay;
+    if (node.textDelay !== undefined) {
+        textDelay = node.textDelay;
+    }
+
     for (let textIdx in nodeText) {
         const text = nodeText[textIdx];
         if(useTypeWriterEffect){
@@ -920,6 +1239,7 @@ async function nextStory(key) {
             await displayTextNormally(text, textIdx == nodeText.length-1);
         }
     }
+    textDelay = previousTextDelay;
 
     // Falls dieser Knoten eine Lampe bereitstellt, merken wir uns, dass der Spieler eine Lampe hat
     if (node.hasLamp) {
@@ -977,8 +1297,8 @@ async function nextStory(key) {
     }
 
     // Timer starten, falls dieser Knoten einen Timer nutzt
-    if (node.hasTimer) {
-        displayTimer();
+    if (node.hasTimer && !node.startTimerBeforeText) {
+        displayTimer(node.timerTime || timerTime, node.timerKey || "verloren");
     }
 }
 
