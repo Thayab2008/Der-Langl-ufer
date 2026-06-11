@@ -22,10 +22,22 @@ let hasGun = false;
 let gunHandlerAttached = false;
 let gunShots = 3;
 let currentStoryKey = null;
+let storyRunId = 0;
+let currentSound = null;
 let kamin2LampUsed = false;
 let schlafen1LampUsed = false;
 let pendingStoryText = [];
 let rausgehen3LampUsed = false;
+
+function playSound(soundPath) {
+  if (currentSound) {
+    currentSound.pause();
+    currentSound.currentTime = 0;
+  }
+
+  currentSound = new Audio(soundPath);
+  currentSound.play().catch(() => {});
+}
 
 function lampClickHandler() {
   if (!hasLamp) return;
@@ -92,6 +104,12 @@ function lampClickHandler() {
    if (currentStoryKey === "dort_lassen_2") {
     pendingStoryText = ["Im Wohnzimmer ist ein Mann"];
     nextStory("wohnzimmer_mann");
+    return;
+  }
+
+     if (currentStoryKey === "versuchen_schlafen") {
+    pendingStoryText = ["Er sieht den Mann wie er seine Hand schnell hinter den Rücken steckt."];
+    nextStory("buch_1");
     return;
   }
 
@@ -162,6 +180,7 @@ const story = {
     start_1: {
       id: "start_1",
       text: ["langläufer hört ein geräusch wacht auf und sieht nichts."],
+      image:"img/wacht_auf.png",
       hasTimer: false,
       hasLamp:false,
       next: [
@@ -179,7 +198,7 @@ const story = {
       ],
       hasTimer: false,
       hasLamp:false,
-      image: "img/christmasBand.jpeg",
+      image: "img/wacht_auf.png",
       next: [
         { key: "weg_1", label: "Weg hinab" },
         { key: "hütte_1", label: "zur Alphütte" }
@@ -242,7 +261,8 @@ const story = {
       id: "weg_1",
       text: ["Er kann den Weg gerade so erkennen"
       ],
-      image: "img/weihnachtsbaumBild.jpg",
+      image: "img/weg_dunkel.png",
+      sound: "sounds/footsteps_snow.mp3",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -258,7 +278,8 @@ const story = {
       id: "weg_2",
       text: ["er kommt an Gabelung"
       ],
-      image: "img/weihnachtsbaumBild.jpg",
+      image: "img/weg_dunkel.png",
+      sound: "sounds/footsteps_snow.mp3",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -450,7 +471,7 @@ const story = {
       hasLamp:true,
       BatteryLife:5,
       next: [
-        { key: "weg_1.1", label: "züruck"},
+        { key: "weg_1", label: "weg hinab"},
         { key: "haus_durchsuchen_1", label: "Haus durchsuchen"}
       ]
       },
@@ -468,7 +489,7 @@ const story = {
       BatteryLife:5,
 
       next: [
-        { key: "weg_1.2", label: "zurück" },
+        { key: "weg_1", label: "weg hinab" },
         { key: "kamin_1", label: "Kamin anzünden" }
       ]
       },
@@ -970,8 +991,8 @@ wehren_2: {
       ]
       },
 
-   bleiben_lassen: {
-      id: "bleiben_lassen",
+   bleiben_lassen_1: {
+      id: "bleiben_lassen_1",
       text: ["Mann bedankt sich",
         "Mann will im Wohnzimmer mit ihm schlafen"
       ],
@@ -981,7 +1002,7 @@ wehren_2: {
       BatteryLife:5,
       next: [
         { key: "erlauben", label: "erlauben" },
-        {key:"anderes_zimmer", label:"in anderes Zimmer schicken"}
+        {key:"anderes_zimmer_1", label:"in anderes Zimmer schicken"}
       ]
       },
 
@@ -997,6 +1018,99 @@ wehren_2: {
       ]
       },
 
+
+      anderes_zimmer_1: {
+      id: "anderes_zimmer_1",
+      text: ["Er traut Mann nicht",
+        "Mann geht ins Schlafzimmer"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "anderes_zimmer_2", label: "weiter" }
+      ]
+      },
+
+      anderes_zimmer_2: {
+      id: "erlauben",
+      text: ["Nach einiger Zeit hört er Mann niesen"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "mann_schauen_1", label: "nach Mann schauen" },
+        {key:"versuchen_schlafen", label:"versuchen zu schlafen"}
+      ]
+      },
+
+      mann_schauen_1: {
+      id: "mann_schauen_1",
+      text: ["Er hat schlechtes Gewissen,",
+        "Licht vom Kamin scheint herein und er sieht einen Mann mit einem Messer",
+        "Er knallt die Tür zu und verbarikadiert sie",
+        "schreckliche Angst und er bleibt bis am Morgen auf"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_21", label: "weiter" }
+      ]
+      },
+
+
+ versuchen_schlafen: {
+      id: "versuchen_schlafen",
+      text: ["Langsames Knarzen einer Tür weckt ihn auf. Das Feuer ist beinahe ausgebrannt und es ist dunkel.",
+        "Er schreit,Ist etwas? Ich kann dich nicht sehen,",
+        ""
+      
+      ],
+      hasTimer: true,
+      timerTime: 12000,
+      timerKey: "Ziel_22",
+      startTimerBeforeText: true,
+      textDelay: 3000,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "Ziel_22", label: "wehren" }
+      ]
+      },
+
+  buch_1: {
+      id: "buch_1",
+      text: ["Mann:Wollte nur Buch holen wegen Langeweile",
+        "Nimmt Buch von Schrank:, Gute Nacht!, geht ins Schlafzimmer"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "buch_2", label: "weiter" }
+      ]
+      }, 
+
+   buch_2: {
+      id: "buch_2",
+      text: ["Er merkt dass der Mann ohne Licht lesen will - merkwürdig",
+        "Er verbarikadiert zur Sicherheit Tür",
+        "Als er aber ins Zimmer schaut sieht er dass der Mann verschwunden ist"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        {key:"Ziel_23", label:"weiter"}
+      ]
+      },
 
 
 
@@ -1025,15 +1139,10 @@ messer_1: {
 
 
 
-  gun_action: {
-    id: "gun_action",
-    text: ["Du ziehst das Gewehr und schießt ab!", "xxxx", "xxxxx"],
-    hasTimer: false,
-    next: [
-      { key: "kamin_3", label: "Zurück" }
-    ]
+ 
+    
   }
-};
+;
  
  // timer & schiessen fragen 
 
@@ -1190,6 +1299,7 @@ function displayTimer(duration = timerTime, timeoutKey = "verloren"){
  */
 async function nextStory(key) {   
   currentStoryKey = key;
+  const runId = ++storyRunId;
     // In der Variable "node" wird der aktuelle Story-Punkt gespeichert, damit wir einfacher darauf zugreifen können.
     // Bsp: key = "bahnhof" -> node = story["bahnhof"] -> node.text, node.image, node.next, etc. werden vom Bahnhof geladen
     const node = story[key];
@@ -1201,7 +1311,14 @@ async function nextStory(key) {
     timerContainer.innerHTML = "";
     clearTimeout(timerVariable);
 
-    // Start-Button nur in der Einleitung anzeigen
+    if (node.sound) {
+        playSound(node.sound);
+    }
+
+    // Titel und Start-Button nur in der Einleitung anzeigen
+    const header = document.getElementById("header");
+    if (header) header.style.display = (node.id === "introduction") ? "" : "none";
+
     const startHolder = document.getElementById("start-button-holder");
     if (startHolder) startHolder.style.display = (node.id === "introduction") ? "" : "none";
 
@@ -1237,6 +1354,11 @@ async function nextStory(key) {
             await displayTextWithTypeWriter(text);
         } else {
             await displayTextNormally(text, textIdx == nodeText.length-1);
+        }
+
+        if (runId !== storyRunId) {
+            textDelay = previousTextDelay;
+            return;
         }
     }
     textDelay = previousTextDelay;
