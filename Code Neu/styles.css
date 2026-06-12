@@ -36,7 +36,7 @@ body {
 
 #story-container {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(240px, 380px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
         "text image"
         "answers answers";
@@ -49,6 +49,7 @@ body {
     backdrop-filter: blur(4px);
     margin-bottom: 20px;
     padding: 20px;
+    min-height: 320px;
 }
 
 .spacer, #header {
@@ -72,19 +73,30 @@ body {
 
 #image-container {
     grid-area: image;
-    justify-self: end;
+    justify-self: center;
     text-align: center;
-    width: 150%;
-    max-width: 700px;
+    width: 100%;
+    max-width: 100%;
 }
 
 #image-container img {
     width: 100%;
+    max-width: 100%;
+    height: auto;
     display: block;
     border-radius: 2px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
     transition: opacity 300ms ease-in-out;
     opacity: 1;
+}
+
+#text-container {
+    width: 100%;
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 8px;
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
 
 #decision-container, #buttons-and-inputs {

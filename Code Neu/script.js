@@ -12,7 +12,7 @@ const gunButton = document.getElementById("gunButton");
 let timerVariable;
 let timerTime = 10000; // Zeit in Millisekunden, die der Benutzer für eine Entscheidung hat (aktuell 10 Sekunden)
 
-let useTypeWriterEffect = false; // Hier kann eingestellt werden, ob der Type-Writer Effekt verwendet werden soll oder nicht. Falls nicht, wird der Text direkt angezeigt.
+let useTypeWriterEffect = true; // Hier kann eingestellt werden, ob der Type-Writer Effekt verwendet werden soll oder nicht. Falls nicht, wird der Text direkt angezeigt.
 let typeWriterSpeed = 3; // Hier kann die Geschwindigkeit des Type-Writer Effekts eingestellt werden (aktuell 3 Millisekunden pro Buchstabe)
 let textDelay = 20; // Hier kann die Verzögerung zwischen den Textabschnitten eingestellt werden (aktuell 2000 Millisekunden = 2 Sekunden)
 let hasLamp = false;
@@ -62,7 +62,7 @@ function lampClickHandler() {
 
   if (currentStoryKey === "kamin_2") {
     const rehInfo = document.createElement("p");
-    rehInfo.textContent = "sieht reh";
+    rehInfo.textContent = "Ein Reh steht am Waldrand";
     textContainer.appendChild(rehInfo);
     kamin2LampUsed = true;
     if (gunButton && hasGun) {
@@ -165,13 +165,15 @@ const story = {
     introduction: {
       id: "introduction",
       text: [
-        "Einleitungsgeschichte.",
-        "xxxx",
-        "xxxx."
+        "Ein Langläufer machte sich am Abend auf den Weg durch die verschneite Landschaft. Er hatte die belebte Loipe verlassen, weil er Ruhe suchte und den vielen Menschen entkommen wollte. Doch je höher er in das Tal hinauf stampfte, desto sicherer war er, dass er nicht mehr allein war. Hinter ihm knirschte der Schnee im gleichen Takt wie unter seinen eigenen Skiern. Er hörte das leise Aufsetzen von Skistöcken und glaubte, dass ihm jemand Schritt für Schritt folgte.",
+        "Obwohl er immer müder wurde, lief er weiter. Mit jedem Meter schien der unbekannte Läufer näher zu kommen. Manchmal glaubte er sogar, dessen Atem hinter sich zu hören. Er wagte es nicht, sich umzudrehen. In seinem Kopf gab es keinen Zweifel daran, dass dort jemand war und nur auf den richtigen Moment wartete, um ihn zu überholen und seine Aussicht rauben will.",
+        "Das Geräusch hinter ihm schien immer näher zu kommen. Er war überzeugt, dass sein Verfolger nur wenige Schritte entfernt war, und sammelte seine letzten Kräfte, um vor ihm zu bleiben. Als er schließlich die Alphütte erreichte, die er sich als Ziel gesetzt hatte, blieb er stehen und drehte sich um",
+        "Doch hinter ihm war niemand. Als er realisierte, dass sein Verfolger nie existiert hatte übermannten ihn Erschöpfung und Verwirrung. Dann verließen ihn seine Kräfte und er sank bewusstlos in den Schnee."
+
       ],
       hasTimer: false,
       hasLamp:false,
-      image: "img/Flur_Eingang.webp",
+  
       
     },
   
@@ -179,8 +181,11 @@ const story = {
   
     start_1: {
       id: "start_1",
-      text: ["langläufer hört ein geräusch wacht auf und sieht nichts."],
-      image:"img/wacht_auf.png",
+      text: ["Geräusch; Als ich mein Bewusstsein langsam wiedererlange finde ich mich in einer Pechschwarzen Welt wieder. ",
+        "Erst als der hellstrahlende Vollmond hinter den Wolken hervortritt erkenne ich die Alphütte. Von Lebewesen keine Spur.",
+        "<Wie lange war ich bloss weggetreten? Ich hätte meine Taschenlampe einpacken sollen…>"
+      ],
+      image:"img/start_1.jpg",
       hasTimer: false,
       hasLamp:false,
       next: [
@@ -191,11 +196,12 @@ const story = {
 
     start_2: {
       id: "start_2",
-      text: ["Er steht auf",
-        "xxx",
-        "xxxx",
-        "xxxxx"
+      text: ["Ich versuche aufzustehen, die alten Langlaufskier an meinen Beinen erschwerten dies, so dass ich die klemmende Bindung mit dem anderen Ski nervös auftrat. Sie brach. ",
+        "<Scheisse!> ",
+        "Nach dem ich den zweiten Ski ausgezogen habe. Stehe ich auf und klopfe mir den Schnee ab."
+        
       ],
+      image:"img/start_1.jpg",
       hasTimer: false,
       hasLamp:false,
       image: "img/wacht_auf.png",
@@ -206,60 +212,11 @@ const story = {
     },
 
 
-  
-    logarithmusGleichungen: {
-      id: "logarithmusGleichungen",
-      text: ["Logarithmus-Gleichungen haben es in sich. Die Substitutions-Methode war dir nicht mehr vertraut, und kommt nächste Woche bei der Prüfung.",
-        "Sehr gut, dass du dich entschieden hast, konzentriert mitzuarbeiten.",
-        "Du entscheidest dich dafür, noch ein Jahr mit dem Projekt Jazz-Band zu warten."
-      ],
-      hasTimer: false,
-      image: "img/logarithmusGleichung.png",
-      next: [
-        { key: "schluss", label: "Spiel abschliessen" }
-      ]
-    },
-  
-    brawlStarsSpielen: {
-      id: "brawlStarsSpielen",
-      text: ["Direkt als du andere Schülerinnen und Schüler fragen willst, ob sie eine Jazz-Band gründen wollen, wirst du abgelenkt.",
-        "Zu einer Runde Brawl Stars kannst du kaum Nein sagen.",
-        "Wie heisst nochmals die In-Game-Währung, mit der man neue Brawler freischalten kann?",
-        "Deine Mitschülerinnen und Mitschüler warten auf deine Antwort:", 
-        "Wenn sie richtig ist, gehst du zur Lehrperson und fragst nach Tipps zur Gründung einer Jazz-Band.",
-      ],
-      image: "img/brawlStars.jpg",
-      hasTimer: true,
 
-      // Hier definieren wir die Benutzereingabe, die an diesem Story-Punkt benötigt wird.
-      // Der SuccessKey enthält der Identifier des Story-Objekts, welches als nächstes ausgeführt werden soll
-      // Der FailureKey enthält der Identifier des Story-Objekts, welches als nächstes ausgeführt werden soll, falls die Benutzereingabe falsch ist.
-      // Die answer ist die richtige Antwort, die mit der Benutzereingabe verglichen wird.
-      // Das Label ist der Text, der im Input-Feld als Platzhalter angezeigt wird.
-      input: {  
-        type: "text",
-        label: "Gib hier deine Antwort ein:",
-        answer: "Credits",
-        successKey: "bandGruenden",
-        failureKey: "brawlStarsVerlieren"
-      }
-    },
-  
-    brawlStarsVerlieren: {
-      id: "brawlStarsVerlieren",
-      text: ["Oh nein! Du hast die Runde verloren, weil du die In-Game-Währung nicht kanntest.",
-        "Vielleicht hättest du doch lieber nach einer Jazz-Band fragen sollen.",
-        "Naja, nächstes Jahr versuchst du es wieder."
-      ],
-      hasTimer: false,
-      next: [
-        { key: "schluss", label: "Spiel abschliessen" }
-      ]
-    },
 
     weg_1: {
       id: "weg_1",
-      text: ["Er kann den Weg gerade so erkennen"
+      text: ["Die kaputten Skier im Schnee liegengelassen, gehe ich den, vom Mondlicht, schwach beleuchteten Weg zurück. "
       ],
       image: "img/weg_dunkel.png",
       sound: "sounds/footsteps_snow.mp3",
@@ -276,9 +233,9 @@ const story = {
 
     weg_2: {
       id: "weg_2",
-      text: ["er kommt an Gabelung"
+      text: ["Nach einem längeren Marsch, erreiche ich kann gerade noch die Umrisse eines Wegweisers sehen, doch wegen dem Dickicht der Bäume dringt kaum noch Licht hindurch. Die Schrift ist nicht mehr zu erkennen. <Welcher Weg war es nochmals? Ich kann mich nicht mehr erinnern… Links? Obwohl. Rechts sieht auch gut aus…>"
       ],
-      image: "img/weg_dunkel.png",
+      image: "img/weg_2.png",
       sound: "sounds/footsteps_snow.mp3",
       hasTimer: false,
       hasLamp: false,
@@ -293,7 +250,6 @@ const story = {
       id: "links_1",
       text: ["bekannter weg, erreicht Hütte"
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -304,7 +260,6 @@ const story = {
     links_2: {
       id: "links_2",
       text: ["Dreht sich um, \"wer ist da\" "],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -317,7 +272,6 @@ const story = {
       id: "hinab_1",
       text: ["hört schnelle Schritte und halt hinter sich."
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -333,7 +287,6 @@ const story = {
         "...hält Messer..."
         
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: true,
       hasLamp: false,
       next: [
@@ -346,7 +299,6 @@ const story = {
       text: ["will herausfinden was ihm die ganze zeit verfolgt. Bleibt stehen"
     
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -360,7 +312,6 @@ const story = {
         
         
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -376,7 +327,6 @@ const story = {
        
         
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -389,7 +339,6 @@ const story = {
         
         
       ],
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -401,7 +350,6 @@ const story = {
       id: "geräusch_weg_3",
       text: ["lauft runter. sieht licht dorf. hört <<Halt>>" ]
       ,
-      image: "img/weihnachtsbaumBild.jpg",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -464,9 +412,11 @@ const story = {
 
  hütte_1: {
       id: "hütte_1",
-      text: ["Tür öffnet sich bei Hütte",
-        "Tritt ein und findet Taschenlampe",
+      text: ["Ich stelle die Skier gegen die verwitterte Wand der Hütte. Beim, angewohnten, höflichen, doch offensichtlich unnötigem, Anklopfen der Tür geht sie langsam auf. Geduckt betrete ich langsam das Haus.<Hallo, ist jemand Zuhause?",
+        "Nachdem die Finsternis nicht geantwortet hat taste ich mich langsam in den Eingang. Auf dem Schrank ertaste ich eine Taschenlampe. Ihr flackern verrät mir, dass sie nicht mehr viel Akku hat. Um sie zu schonen schalte ich sie aus. ",
       ],
+      image:"img/hütte_1.png",
+      sound:"sound/door_sound.mp3",
       hasTimer: false,
       hasLamp:true,
       BatteryLife:5,
@@ -478,11 +428,10 @@ const story = {
 
    haus_durchsuchen_1: {
       id: "haus_durchsuchen_1",
-      text: ["findet Gewehr",
-        "xxx",
-        "xxxx",
-        "xxxxx"
+      text: ["Beim Durchsuchen entdecke ich ein geladenes Gewehr im hinteren Teil des Wohnzimmers. <Für eine solch kleine Hütte hat sie erstaunlich viele Zimmer --  eine Toilette, ein Schlafzimmer, eine Küche und ein Wohnzimmer mit Kamin. Hier lebte bestimmt ein Jäger.",
+        
       ],
+      image:"img/durchsucht_haus.png",
       hasTimer: false,
       hasLamp:true,
       hasGun:true,
@@ -496,11 +445,11 @@ const story = {
 
    kamin_1: {
       id: "kamin_1",
-      text: ["legt Feuerzeug aufs Holz",
-        "xxx",
-        "xxxx",
-        "xxxxx"
+      text: ["Mithilfe von Streichhölzer und Holz, welche neben dem Kamin liegen, entzünde ich in Rekordzeit ein erleuchtendes Feuer.",
+        "<Endlich etwas zum Aufwärmen>Ich nehme ein altes Buch vom Regal und setze mich zum Lesen. Doch bevor ich lesen kann nicke ich ein.",
+      
       ],
+      image:"img/kamin_1.webp",
       hasTimer: false,
       hasLamp:true,
       BatteryLife:5,
@@ -511,11 +460,10 @@ const story = {
       },
  kamin_2: {
       id: "kamin_2",
-      text: ["hört Geräusch und wächt auf",
-        "Schlafzimmerfenster von Wind offen",
-        "xxxx",
-        "xxxxx"
+      text: ["Durch mehrfache laute Knalle werde ich aus dem Schlaf gerissen.Ich folge dem Geräusch ins Schlafzimmer und entdecke ein Fenster, das vom Wind auf und zu geschlagen wird.",
+        "Ich fange das Fenster ein und blicke in die Kälte hinaus. ",
       ],
+      image:"img/kamin_2.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:true,
@@ -554,6 +502,7 @@ const story = {
         "Feuer ausgebrannt",
         "dunkel"
       ],
+      image:"img/schlafen_1.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:true,
@@ -737,9 +686,8 @@ verbarikadieren_1: {
 
   schiessen_1: {
       id: "schiessen_1",
-      text: ["Er schiesst und trifft",
-        "xxx",
-        "xxxxx"
+      text: ["Mit knurrendem Magen, drücke ich ab. Das Reh fällt sofort tot um.",
+       
       ],
       hasTimer: false,
       hasLamp:true,
