@@ -42,6 +42,8 @@ function playSound(soundPath) {
 function lampClickHandler() {
   if (!hasLamp) return;
 
+  playSound("sounds/lamp_sound.mp3");
+
   if (BatteryLife <= 0) {
     alert("Die Batterie ist leer.");
     lampButton.disabled = true;
@@ -72,7 +74,7 @@ function lampClickHandler() {
 
   if (currentStoryKey === "schlafen_1") {
     const mannInfo = document.createElement("p");
-    mannInfo.textContent = "sieht mann mit messer in hand";
+    mannInfo.textContent = "Ein Mann mit Messer steht über mir.";
     textContainer.appendChild(mannInfo);
     schlafen1LampUsed = true;
     if (gunButton && hasGun) {
@@ -81,7 +83,7 @@ function lampClickHandler() {
   }
 
   if (currentStoryKey === "rausgehen_1") {
-    pendingStoryText = ["Er sieht totes Reh mit schlimmen Schnittwunden am Walndrand"];
+    pendingStoryText = ["In rotem Schnee liegt ein totes Reh mit Schnittwunden."];
     nextStory("verbarikadieren_1");
     return;
 
@@ -96,19 +98,21 @@ function lampClickHandler() {
   
   }
   if (currentStoryKey === "dort_lassen_3") {
-    pendingStoryText=["nasse Spur führt zu Schlafzimmer"]
+    pendingStoryText=["Eine nasse Spur führt ins Schlafzimmer",
+      "Als ich die Spuren zum Schlafzimmer sehe, verbarrikadiere ich schnell die Tür mit dem Regal"
+    ]
     nextStory("wehren_2");
     return;
   }
 
    if (currentStoryKey === "dort_lassen_2") {
-    pendingStoryText = ["Im Wohnzimmer ist ein Mann"];
+    pendingStoryText = ["Ein überrascht aussehender Mann steht im Wohnzimmer."];
     nextStory("wohnzimmer_mann");
     return;
   }
 
      if (currentStoryKey === "versuchen_schlafen") {
-    pendingStoryText = ["Er sieht den Mann wie er seine Hand schnell hinter den Rücken steckt."];
+    pendingStoryText = ["Mark steckt seine rechte Hand schnell hinter den Rücken und sagt: <Ich wollte mir nur ein Buch holen> Er nimmt ein Buch und geht zurück mit einem <Gute Nacht>."];
     nextStory("buch_1");
     return;
   }
@@ -116,7 +120,7 @@ function lampClickHandler() {
 
   if (currentStoryKey === "rausgehen_3") {
     const mannInfo = document.createElement("p");
-    mannInfo.textContent = "sieht Mann voll mit blutigen Kleidern und Messer";
+    mannInfo.textContent = "Der Mann ist voller Blut und hält ein Messer.";
     textContainer.appendChild(mannInfo);
     rausgehen3LampUsed = true;
     if (gunButton && hasGun) {
@@ -130,6 +134,9 @@ function lampClickHandler() {
 
 function gunClickHandler() {
   if (!hasGun) return;
+
+  playSound("sounds/gun_shot.mp3");
+
   if (gunShots <= 0) {
     alert("Du hast keine Schüsse mehr!");
     return;
@@ -185,7 +192,7 @@ const story = {
         "Erst als der hellstrahlende Vollmond hinter den Wolken hervortritt erkenne ich die Alphütte. Von Lebewesen keine Spur.",
         "<Wie lange war ich bloss weggetreten? Ich hätte meine Taschenlampe einpacken sollen…>"
       ],
-      image:"img/start_1.jpg",
+      image:"img/mond.jpg",
       hasTimer: false,
       hasLamp:false,
       next: [
@@ -201,7 +208,7 @@ const story = {
         "Nach dem ich den zweiten Ski ausgezogen habe. Stehe ich auf und klopfe mir den Schnee ab."
         
       ],
-      image:"img/start_1.jpg",
+      image:"img/mond.jpg",
       hasTimer: false,
       hasLamp:false,
       image: "img/wacht_auf.png",
@@ -416,7 +423,7 @@ const story = {
         "Nachdem die Finsternis nicht geantwortet hat taste ich mich langsam in den Eingang. Auf dem Schrank ertaste ich eine Taschenlampe. Ihr flackern verrät mir, dass sie nicht mehr viel Akku hat. Um sie zu schonen schalte ich sie aus. ",
       ],
       image:"img/hütte_1.png",
-      sound:"sound/door_sound.mp3",
+      sound:"sounds/door_sound.mp3",
       hasTimer: false,
       hasLamp:true,
       BatteryLife:5,
@@ -450,6 +457,7 @@ const story = {
       
       ],
       image:"img/kamin_1.webp",
+      sound:"sounds/fire.mp3",
       hasTimer: false,
       hasLamp:true,
       BatteryLife:5,
@@ -464,6 +472,7 @@ const story = {
         "Ich fange das Fenster ein und blicke in die Kälte hinaus. ",
       ],
       image:"img/kamin_2.png",
+      sound:"sounds/window_bang.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:true,
@@ -481,13 +490,15 @@ const story = {
     
  kamin_3: {
       id: "kamin_3",
-      text: ["Er ist müde aber besorgt",
-        "xxxx",
-        "xxxxx"
+      text: ["Aufgrund der Kälte schliesse ich das Fenster schnell ab. Ich gähne und reibe mir die Augen.",
+        "<Ob die Sonne wohl bald auf geht?>",
+       
       ],
+      image:"img/kamin_2.png",
+      sound:"sounds/fire.mp3",
       hasTimer: false,
       hasLamp:true,
-      canUseGun:true,
+      canUseGun:false,
       BatteryLife:5,
       next: [
         { key: "schlafen_1", label: "schlafen" },
@@ -514,10 +525,12 @@ const story = {
 
   schlafen_2: {
       id: "schlafen_2",
-      text: ["Fremde Stimme: ‚Schlaf gut‘",
-        "Spürt Schmerz in Brust",
-        "xxxxx"
+      text: ["Kaum lege ich mich neben das kleine Feuer, schlafe ich ein. ",
+        "…",
+        "Auf einmal wache ich auf. Das Feuer ist schon ausgebrannt und der Raum Stockdunkel. Nur das knarren der alten Holzdielen ist zu hören.",
+        "Eine Raue Stimme durchbricht die Stille: <Schlaf gut>"
       ],
+      image:"img/schlafen_1.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:true,
@@ -529,8 +542,10 @@ const story = {
 
   schiessen_2: {
       id: "schiessen_2",
-      text: ["Er rollt zur Seite, nimmt Gewehr und zündet ab -- Mann stirbt"],
+      text: ["Im letzten Moment rolle ich zur Seite, greife nach dem Gewehr und drücke ab.Der Mann sackt zusammen und bleibt reglos liegen. Eine rote Lache breitet sich aus."],
       hasTimer: false,
+      image:"image/guy.avif",
+      sound:"sounds/gun_shot.mp3",
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
@@ -543,9 +558,10 @@ const story = {
 
   wach_1: {
       id: "wach_1",
-      text: ["Er schaut zu dass das Feuer immer brennt",
-        "Er hört ein Schrei eines Tieres draussen"
+      text: ["Ich setze mich an das Feuer und werfe ein paar Holzscheiten rein.",
+        "Plötzlich schreit ein Tier laut auf. "
       ],
+      sound:"sounds/animal_sound.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -560,8 +576,8 @@ const story = {
 
 rausgehen_1: {
       id: "rausgehen_1",
-      text: ["Wolken vor Mond",
-        "Es ist stockdunkel"
+      text: ["In den Wald hinausblickend stehe ich vor der Tür. Doch da die Wolken den Mond verdecken kann ich nichts erkennen.",
+        
       ],
       hasTimer: false,
       hasLamp:true,
@@ -575,8 +591,8 @@ rausgehen_1: {
 
 rausgehen_2: {
       id: "rausgehen_2",
-      text: ["Muss wohl ein Irrtum gewesen sein",
-        "get wieder rein"
+      text: ["Schultern zuckend kehre ich in die Hütte zurück.",
+     
       ],
       hasTimer: false,
       hasLamp:true,
@@ -589,9 +605,8 @@ rausgehen_2: {
 rausgehen_3: {
       id: "rausgehen_3",
       text: ["er wird müde",
-        "Feuer wird schwächer",
-        "Tür geht auf und Mann steht dort",
-        "‚Guten Abend ist hier jemand?‘"
+        "Ich gähne und blicke zur schwächer werdenden Flamme.Langsam knarrt die Tür auf.Eine ruhige Männerstimme ertönt: <Hallo! Ist hier wer?",
+      
       ],
       hasTimer: false,
       hasLamp:true,
@@ -604,9 +619,9 @@ rausgehen_3: {
 
 rausgehen_4: {
       id: "rausgehen_4",
-      text: ["beide reden",
+      text: ["Der Mann sagt: <ich bin froh, jemanden zu treffen. Ich irre schon seit Stunden umher.>Augen reibend strecke ich die Hand aus um ihn zu begrüssen. ",
         "Er sieht den Mann fast nicht",
-        "spürt auf einmal Messerklinge in Bauch"
+        "Im nächsten Augenblick blitzt ein Messer auf–"
       ],
       hasTimer: false,
       hasLamp:true,
@@ -618,9 +633,8 @@ rausgehen_4: {
       },
 rausgehen_5: {
       id: "rausgehen_5",
-      text: ["Er schiesst aber trifft ihn nicht",
-        "Der Mann erschrickt und rennt davon",
-        "Er verbarikadiert Hütte"
+      text: ["Ruckartig reisse ich das Gewehr hoch und schiesse.Der rennt um sein Leben. Nur das Loch in der Wand bleibt.Zur Sicherheit verbarrikadiere ich die Tür",
+ 
       ],
       hasTimer: false,
       hasLamp:true,
@@ -640,8 +654,8 @@ rausgehen_5: {
 
 verbarikadieren_1: {
       id: "verbarikadieren_1",
-      text: ["Er hat Angst",
-        "Er geht zum Kaminfeuer"
+      text: ["Panisch eile ich in die Hütte und verbarrikadiere sie.",
+     
       ],
       hasTimer: false,
       hasLamp:true,
@@ -654,8 +668,8 @@ verbarikadieren_1: {
 
  verbarikadieren_2: {
       id: "verbarikadieren_2",
-      text: ["Etwas rüttelt an Tür",
-        "Stille bis zum Morgen"
+      text: ["Während der Nacht rüttelt es mehrmals an der Tür. Doch ich bleibe vor dem Feuer und halte mir die Ohren zu. ",
+        "Die ersten Morgenstrahlen brechen ein. Ein höfliches Klopfen ertönt. Ein Polizist winkt erleichtert durch das Fenster."
       ],
       hasTimer: false,
       hasLamp:true,
@@ -668,7 +682,7 @@ verbarikadieren_1: {
       
   verbarikadieren_1_1: {
       id: "verbarikadieren_1_1",
-      text: ["Er verbarikadiert zur Sicherheit dass kein wildes Tier reinkommt"
+      text: ["Der Schrei löst in mir ein mulmiges Gefühl aus und zur Sicherheit verbarrikadiere ich die Tür"
       ],
       hasTimer: false,
       hasLamp:true,
@@ -701,9 +715,8 @@ verbarikadieren_1: {
 
     drinnen_1: {
       id: "drinnen_1",
-      text: ["Schliesst Fenster",
-        "ist am Kamin",
-        "hört ein Klopfen"
+      text: ["Aufgrund der Dunkelheit entschliesse ich mich auf den Morgen zu warten. Ich schliesse das Fenster und setze mich an den Kamin.Kurz darauf klopft es an der Tür.",
+       
       ],
       hasTimer: false,
       hasLamp:true,
@@ -716,9 +729,8 @@ verbarikadieren_1: {
 
     drinnen_2: {
       id: "drinnen_2",
-      text: ["Spalt öffnet sich",
-        "Freundlicher Herr sucht Schutz vor Kälte",
-        "Er lässt ihn herein"
+      text: ["Ich öffne die Tür einen Spalt weit. Ein freundlich aussehender Herr blickt mich an. ",
+        "Er: <Dürfte ich mich zu ihnen gesellen. Mir frieren bald die Finger ab.>Ich lasse ihn herein.",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -731,8 +743,8 @@ verbarikadieren_1: {
 
   drinnen_3: {
       id: "drinnen_3",
-      text: ["Gast:,sah beim Aufstieg Langläufer verlaufen. Dank Schuss fand er ich her,",
-        "Langläufer erleichtert:,dachte schon ich höre Dinge"
+      text: ["Er: <Ich habe beim hochlaufen schon gesehen. Leider verlor Sie aus den Augen und verlief mich… Doch dank dem Schuss habe ich her gefunden.>",
+        "<Sie waren also derjenige der mich einholen wollte. Ich dachte schon ich höre Dinge.>"
       ],
       hasTimer: false,
       hasLamp:true,
@@ -745,8 +757,7 @@ verbarikadieren_1: {
 
 drinnen_4: {
       id: "drinnen_4",
-      text: ["Gast:,Buch bitte,",
-        "Langläufer dreht sich um -- Schlag auf Kopf"
+      text: ["Er: <Könnten Sie mir bitte das Buch dort reichen?>",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -761,35 +772,23 @@ drinnen_4: {
 
 rausgehen_reh: {
       id: "rausgehen_reh",
-      text: ["Reh ist tot"
+      text: ["Ich stampfe durch den Schnee und bleibe vor dem leblosen Reh stehen.",
+        "<Puh! Das war das war das erste Mal, dass ich auf ein Lebewesen schoss.> "
       ],
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "dort_lassen_1", label: "dort lassen" },
+  
         {key:"hütte_bringen", label:"vör Hütte bringen"}
       ]
       },  
-dort_lassen_1: {
-      id: "dort_lassen_1",
-      text: ["Als er zur Hütte geht sieht er fremde Fussspuren"
-      ],
-      hasTimer: false,
-      hasLamp:true,
-      canUseGun:false,
-      BatteryLife:5,
-      next: [
-        { key: "dort_lassen_2", label: "weiter" }
-      ]
-      },
-      
+
 
 dort_lassen_2: {
       id: "dort_lassen_1",
-      text: [",Ist hier jemand!, ruft er",
-        "Niemand antwortet und das Feuer/Licht geht aus"
+      text: ["Das Feuer ist erloschen und der Raum pechschwarz.<Ist hier jemand?>Niemand antwortet.",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -802,9 +801,8 @@ dort_lassen_2: {
       
 dort_lassen_3: {
       id: "dort_lassen_3",
-      text: [",Ich weiss dass jemand hier ist !,",
-        "Er hört eine Pfütze beim Eintreten",
-        "Wahrscheinlich Schnee denkt er"
+      text: ["Jede Faser meines Körpers spannt sich an.<Ich weiss, dass jemand hier ist!>",
+        "Beim Eintreten höre ich ein Platschen unter meinem Fuss.<…Die Pfütze war vorher noch nicht da…>",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -819,8 +817,8 @@ dort_lassen_3: {
 
 schlafzimmer: {
       id: "schlafzimmer",
-      text: ["sieht einen Mann",
-        "Er verbadikadiert Türe schnell"
+      text: ["Kaum öffne ich die Tür sehe ich eine fremde Gestalt. Ich knalle die Tür zu und verbarrikadiere sie mit dem danebenstehenden Regal.",
+  
       ],
       hasTimer: false,
       hasLamp:true,
@@ -834,9 +832,9 @@ schlafzimmer: {
 
 toilette_1: {
       id: "toilette_1",
-      text: ["nichts zu sehen ",
-        "Holz im Wohnzimmer knarzt",
-        "schnelle Schritte!"
+      text: ["Nichts zu sehen… ",
+        "…Im Wohnzimmer knarzen die Dielen…",
+        "…Schnelle Schritte!"
       
       ],
       hasTimer: true,
@@ -854,9 +852,8 @@ toilette_1: {
 
 wehren_1: {
       id: "wehren_1",
-      text: ["Schlägt mit Gewehrlauf ins dunkle - trifft",
-        "Mann mit Messer wird ohnmächtig",
-        "Er fesselt den Mann und sperrt ihn im Schlafzimmer ein"
+      text: ["verbarrikadiere ich sicherheitshalber Tür und Fenster.Als ich mit dem Gewehrlauf ins Dunkle schlage treffe ich etwas.Nachdem sich meine Augen sich angepasst haben, blicke ich auf eine ohnmächtige Gestalt mit Messer.Mann verlässt Hütte, Als er einschläft spurt er Turen&Fenster absichern. stechendeSchmereschlagst mit Gewehrlauf ins Dunkle-triffst. ^",
+        "Eilig fessle ich ihn mit einem Vorhang und sperre ihn, mithilfe dem Regal unter der Türklinke, im Schlafzimmer ein.",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -870,11 +867,11 @@ wehren_1: {
 
 wehren_2: {
       id: "wehren_2",
-      text: ["Mann wächt auf und wirkt ängstlich",
-        "Mann:, Ich hatte nur Angst vor dem Schuss,",
-        "Er lässt ihn zur Sicherheit gefesselt und eingesperrt",
-        "Mann tobt kurz ist aber dann ruhig",
-        "Er bleibt wach bis zum Morgen um auf den Mann zu schauen"
+      text: ["Mein ganzer Körper zittert.",
+        "Ich höre wie er aufwacht.",
+        "Eine raue Stimme von der anderen Seite spricht: <Hey lass mich raus! Ich war nur auf der Hut, da ich ein Schuss hörte.> ",
+        "<Tut mir ja leid, aber ich werde dich vorerst nicht rauslassen.>",
+        "Wutentbrannt schreit er: <Lass mich sofort raus! Rauslassen habe ich gesagt!>Die Tür poltert mehrmals heftig, doch trotz des alten Aussehens gibt sie nicht nach.Ich weiss nicht mehr wie lange es gedauert hat, doch als der Morgen einbricht war er still."
       ],
       hasTimer: false,
       hasLamp:true,
@@ -887,8 +884,8 @@ wehren_2: {
 
   hütte_bringen: {
       id: "gütte_bringen",
-      text: ["Er denkt sich er kann das Reh sicher noch gebrauchen",
-        "Möchte Küche gehen um Messer zu holen"
+      text: ["<Tut mir leid, aber der Hunger ist zu gross.>",
+        "Ich greife es am Hinterbein und schleife es durch den Schnee"
       ],
       hasTimer: false,
       hasLamp:true,
@@ -898,11 +895,23 @@ wehren_2: {
         { key: "dort_lassen_1", label: "weiter" }
       ]
       },
-      
+  
+ dort_lassen_1: {
+      id: "dort_lassen_1",
+      text: ["Vor der Hütte erkenne ich Abdrücke von fremdem Schuhprofil welche in Hütte führen. Ich lasse das Reh schockiert los.",
+      ],
+      hasTimer: false,
+      hasLamp:true,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "dort_lassen_2", label: "weiter" }
+      ]
+      },   
 
   wohnzimmer_mann: {
       id: "wohnzimmer_mann",
-      text: ["Der Mann sagt er hat sich verlaufen und friert"],
+      text: ["Der Mann zuckt zusammen und quietscht: <Bitte nicht schiessen. Ich habe mich verlaufen und friere fürchterlich. Lass mich bitte bleiben.>"],
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -915,8 +924,7 @@ wehren_2: {
 
   wegschicken_1: {
       id: "wegschicken_1",
-      text: ["Er vertraut dem Mann nicht aber schickt ihn trozdem mit seiner Taschenlampe ins Tal",
-        "Der Mann verlässt Hütte und er sichert noch einmal alle Türen und Fenster"
+      text: ["<Tut mir leid ich traue dir nicht.Hier nimm die Taschenlampe. Bleibe einfach auf dem Weg, dann bist du bald im Dorf.>",
       ],
       hasTimer: false,
       hasLamp:false,
@@ -929,7 +937,10 @@ wehren_2: {
 
   wegschicken_2: {
       id: "wegschicken_2",
-      text: ["Hört in der Nacht nochmals draussen und bleibt deshalb wach bis am Morgen"],
+      text: ["Als der Mann die Hütte verlässt, verbarrikadiere ich sicherheitshalber Tür und Fenster.",
+        "In der Nacht sehe ich Licht durchs Fenster und höre ich, wie jemand um die Hütte schleicht.",
+        "Ich bleibe wach bis der Morgen einbricht. "
+      ],
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -941,8 +952,9 @@ wehren_2: {
 
    bleiben_lassen_1: {
       id: "bleiben_lassen_1",
-      text: ["Mann bedankt sich",
-        "Mann will im Wohnzimmer mit ihm schlafen"
+      text: ["Der Mann spricht: <Vielen Dank! Mein Name ist übrigens Mark.>",
+        "Wir entzünden das Feuer.",
+        "Der Mark fragt: <Ich darf doch sicher hier beim Feuer schlafen, oder? >"
       ],
       hasTimer: false,
       hasLamp:false,
@@ -956,7 +968,7 @@ wehren_2: {
 
       erlauben: {
       id: "erlauben",
-      text: ["Er bleibt lange wach als er aber einschläft spürt er einen stechenden Schmerz in seiner Brust"],
+      text: ["Ich versuche wach zu bleiben, doch aufgrund des warmen Feuers und dem schlafenden Mann, entspanne ich mich langsam und nicke ein. Plötzlich verspüre ich, wie etwas scharfes mein Hals berührt– "],
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -969,8 +981,8 @@ wehren_2: {
 
       anderes_zimmer_1: {
       id: "anderes_zimmer_1",
-      text: ["Er traut Mann nicht",
-        "Mann geht ins Schlafzimmer"
+      text: ["Ich erinnere mich, dass die Schlafzimmertür laut knarrt.",
+        "<Tut mir leid Mark, aber mir wäre es wohler, wenn du im Schlafzimmer schläfst.>"
       ],
       hasTimer: false,
       hasLamp:false,
@@ -983,7 +995,7 @@ wehren_2: {
 
       anderes_zimmer_2: {
       id: "erlauben",
-      text: ["Nach einiger Zeit hört er Mann niesen"],
+      text: ["Nach einiger Zeit, höre ich den Mark im Schlafzimmer mehrmals niesen."],
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -996,10 +1008,9 @@ wehren_2: {
 
       mann_schauen_1: {
       id: "mann_schauen_1",
-      text: ["Er hat schlechtes Gewissen,",
-        "Licht vom Kamin scheint herein und er sieht einen Mann mit einem Messer",
-        "Er knallt die Tür zu und verbarikadiert sie",
-        "schreckliche Angst und er bleibt bis am Morgen auf"
+      text: ["Mich plagt ein schlechtes Gewissen.Als ich die Tür öffne und Licht vom Kamin reinscheint, erstarrt der Mann erschrocken mit einem Messer in der Hand.",
+        "Schnell knalle ich die Tür zu und verbarrikadiere sie mit dem daneben stehenden Regal.",
+        "Mein Herz pocht wie wild und es läuft mir kalt den Rücken runter, als er mich bittet die Tür zu öffnen. In dieser Verfassung bleibe ich bis der Morgen einbricht.",
       ],
       hasTimer: false,
       hasLamp:false,
@@ -1013,8 +1024,8 @@ wehren_2: {
 
  versuchen_schlafen: {
       id: "versuchen_schlafen",
-      text: ["Langsames Knarzen einer Tür weckt ihn auf. Das Feuer ist beinahe ausgebrannt und es ist dunkel.",
-        "Er schreit,Ist etwas? Ich kann dich nicht sehen,",
+      text: ["Langsames Knarzen weckt mich aus dem Halbschlaf. Das Feuer ist zu Glut geworden. Nur Silhouetten sind zu erkennen.",
+        "<Ist etwas? Ich kann dich fast nicht sehen…>",
         ""
       
       ],
@@ -1033,8 +1044,11 @@ wehren_2: {
 
   buch_1: {
       id: "buch_1",
-      text: ["Mann:Wollte nur Buch holen wegen Langeweile",
-        "Nimmt Buch von Schrank:, Gute Nacht!, geht ins Schlafzimmer"
+      text: ["Irgendwas war merkwürdig… ",
+        "Lesen ohne Licht?",
+        "Aus Unwohlsein verbarrikadiere ich seine Tür.",
+        "Überrascht fragt er: <Hast du mich eingeschlossen? Mach bitte die Tür wieder auf.>",
+        "<Entschuldige, ich lasse dich morgen wieder raus.>"
       ],
       hasTimer: false,
       hasLamp:false,
@@ -1045,29 +1059,13 @@ wehren_2: {
       ]
       }, 
 
-   buch_2: {
-      id: "buch_2",
-      text: ["Er merkt dass der Mann ohne Licht lesen will - merkwürdig",
-        "Er verbarikadiert zur Sicherheit Tür",
-        "Als er aber ins Zimmer schaut sieht er dass der Mann verschwunden ist"
-      ],
-      hasTimer: false,
-      hasLamp:false,
-      canUseGun:false,
-      BatteryLife:5,
-      next: [
-        {key:"Ziel_23", label:"weiter"}
-      ]
-      },
 
 
 
 
 messer_1: {
       id: "messer_1",
-      text: ["Er hat Angst und hat Schuldgefühle",
-        "Es wird morgen",
-        "als er sich umdreht ist die Leiche weg"
+      text: ["Es vergehen einige Minuten oder Stunden in denen ich zusammengekauert in der dunkelsten Ecke des Zimmers verkrieche. Ab und zu blicke ich zitternd zu dem nun, von den ersten Sonnenstrahlen beleuchteten, Körper.",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -1184,8 +1182,9 @@ function displayDecisionButtons(buttonList){
         let newButton = document.createElement("button");
         newButton.textContent = button.label;
 
-        // Die Funktion, die ausgeführt wird, wenn der Button geklickt wird
+        // Die Funktion, die ausgeführt wird, wenn der Button geklickt wird 
         newButton.addEventListener("click", function(){
+            playSound("sounds/click_effect.mp3");
             // Der nächste Story-Punkt wird geladen
             nextStory(button.key);
         });
@@ -1213,6 +1212,7 @@ function showInput(inputConfig){
 
     // Der EventLIstener auf dem Button, der geklickt wird wenn die Eingabe abgeschickt wird
     submitButton.addEventListener("click", function(){
+        playSound("sounds/click_effect.mp3");
         const userInput = inputElement.value;
         if (userInput.toLowerCase() === inputConfig.answer.toLowerCase()) {
             alert("Die Antwort " + userInput + " ist richtig! :)")

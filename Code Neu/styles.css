@@ -1,7 +1,7 @@
 /* Interactive Story Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(180deg, #000000, #c9e1e9);
+    background: linear-gradient(135deg, #010c23, #2f3454);
     min-height: 100vh;
     margin: 0 auto;
 }
@@ -20,7 +20,7 @@ body {
     width: 100%;
     padding: 2rem 1rem;
     align-items: center;
-    border-bottom: 1px solid rgb(224, 224, 224);
+    border-bottom: 1px solid rgb(0, 0, 0);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
@@ -28,9 +28,9 @@ body {
 #main-title {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #fff704;
+    color: #ececec;
     letter-spacing: -1px;
-    text-shadow: 10 0 10px #ff0000;
+    text-shadow: 10 0 10px #000000;
     text-transform: uppercase;
 }
 
@@ -42,9 +42,9 @@ body {
         "answers answers";
     align-items: start;
     gap: 20px;
-    background: #ffffe2;
+    background: #20201e;
     border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(255, 115, 0, 0.726);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.726);
     border-left: 4px solid #ffffff;
     backdrop-filter: blur(4px);
     margin-bottom: 20px;
@@ -69,6 +69,7 @@ body {
     width: 100%;
     font-size: 1.2rem;
     line-height: 1.2;
+    color:#c6c6cb
 }
 
 #image-container {
@@ -146,9 +147,9 @@ button {
 }
 
 button:hover {
-  background: #002bd5;
+  background: #e5ff00;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(164, 164, 164, 0.15);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0);
 }
 
 button:active {
