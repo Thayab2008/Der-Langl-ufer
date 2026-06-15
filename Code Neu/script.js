@@ -99,8 +99,10 @@ function lampClickHandler() {
   }
   if (currentStoryKey === "dort_lassen_3") {
     pendingStoryText=["Eine nasse Spur führt ins Schlafzimmer",
-      "Als ich die Spuren zum Schlafzimmer sehe, verbarrikadiere ich schnell die Tür mit dem Regal"
-    ]
+      "Als ich die Spuren zum Schlafzimmer sehe, verbarrikadiere ich schnell die Tür mit dem Regal",
+    playSound("sounds/verbarikadieren.mp3")
+    ],
+    
     nextStory("wehren_2");
     return;
   }
@@ -178,6 +180,7 @@ const story = {
         "Doch hinter ihm war niemand. Als er realisierte, dass sein Verfolger nie existiert hatte übermannten ihn Erschöpfung und Verwirrung. Dann verließen ihn seine Kräfte und er sank bewusstlos in den Schnee."
 
       ],
+      image:"img/hütte_draussen.jpg",
       hasTimer: false,
       hasLamp:false,
   
@@ -509,9 +512,9 @@ const story = {
 
   schlafen_1: {
       id: "schlafen_1",
-      text: ["wächt in der Nacht auf",
-        "Feuer ausgebrannt",
-        "dunkel"
+      text: ["Kaum lege ich mich neben das kleine Feuer, schlafe ich ein.",
+        "Auf einmal wache ich auf. Das Feuer ist schon ausgebrannt und der Raum Stockdunkel. Nur das knarren der alten Holzdielen ist zu hören.",
+        
       ],
       image:"img/schlafen_1.png",
       hasTimer: false,
@@ -525,9 +528,8 @@ const story = {
 
   schlafen_2: {
       id: "schlafen_2",
-      text: ["Kaum lege ich mich neben das kleine Feuer, schlafe ich ein. ",
-        "…",
-        "Auf einmal wache ich auf. Das Feuer ist schon ausgebrannt und der Raum Stockdunkel. Nur das knarren der alten Holzdielen ist zu hören.",
+      text: [" ",
+     
         "Eine Raue Stimme durchbricht die Stille: <Schlaf gut>"
       ],
       image:"img/schlafen_1.png",
@@ -562,6 +564,7 @@ const story = {
         "Plötzlich schreit ein Tier laut auf. "
       ],
       sound:"sounds/animal_sound.mp3",
+      image:"img/kamin_1.webp",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -608,6 +611,7 @@ rausgehen_3: {
         "Ich gähne und blicke zur schwächer werdenden Flamme.Langsam knarrt die Tür auf.Eine ruhige Männerstimme ertönt: <Hallo! Ist hier wer?",
       
       ],
+      sound:"sounds/door_sound.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:true,
@@ -671,6 +675,7 @@ verbarikadieren_1: {
       text: ["Während der Nacht rüttelt es mehrmals an der Tür. Doch ich bleibe vor dem Feuer und halte mir die Ohren zu. ",
         "Die ersten Morgenstrahlen brechen ein. Ein höfliches Klopfen ertönt. Ein Polizist winkt erleichtert durch das Fenster."
       ],
+      sound:"sounds/door_rattling.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -718,6 +723,7 @@ verbarikadieren_1: {
       text: ["Aufgrund der Dunkelheit entschliesse ich mich auf den Morgen zu warten. Ich schliesse das Fenster und setze mich an den Kamin.Kurz darauf klopft es an der Tür.",
        
       ],
+      sound:"sounds/window_closing.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -775,6 +781,7 @@ rausgehen_reh: {
       text: ["Ich stampfe durch den Schnee und bleibe vor dem leblosen Reh stehen.",
         "<Puh! Das war das war das erste Mal, dass ich auf ein Lebewesen schoss.> "
       ],
+      sound:"sounds/footsteps_snow.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -873,6 +880,7 @@ wehren_2: {
         "<Tut mir ja leid, aber ich werde dich vorerst nicht rauslassen.>",
         "Wutentbrannt schreit er: <Lass mich sofort raus! Rauslassen habe ich gesagt!>Die Tür poltert mehrmals heftig, doch trotz des alten Aussehens gibt sie nicht nach.Ich weiss nicht mehr wie lange es gedauert hat, doch als der Morgen einbricht war er still."
       ],
+      sound:"sounds/door_rattling.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -941,6 +949,7 @@ wehren_2: {
         "In der Nacht sehe ich Licht durchs Fenster und höre ich, wie jemand um die Hütte schleicht.",
         "Ich bleibe wach bis der Morgen einbricht. "
       ],
+      sound:"sounds/verbarikadieren.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -956,6 +965,7 @@ wehren_2: {
         "Wir entzünden das Feuer.",
         "Der Mark fragt: <Ich darf doch sicher hier beim Feuer schlafen, oder? >"
       ],
+      sound:"sounds/fire.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -969,6 +979,7 @@ wehren_2: {
       erlauben: {
       id: "erlauben",
       text: ["Ich versuche wach zu bleiben, doch aufgrund des warmen Feuers und dem schlafenden Mann, entspanne ich mich langsam und nicke ein. Plötzlich verspüre ich, wie etwas scharfes mein Hals berührt– "],
+      sound:"sounds/fire.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -984,6 +995,7 @@ wehren_2: {
       text: ["Ich erinnere mich, dass die Schlafzimmertür laut knarrt.",
         "<Tut mir leid Mark, aber mir wäre es wohler, wenn du im Schlafzimmer schläfst.>"
       ],
+      sound:"sounds/door_sound.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -996,6 +1008,7 @@ wehren_2: {
       anderes_zimmer_2: {
       id: "erlauben",
       text: ["Nach einiger Zeit, höre ich den Mark im Schlafzimmer mehrmals niesen."],
+      sound:"sounds/sneeze.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -1012,6 +1025,7 @@ wehren_2: {
         "Schnell knalle ich die Tür zu und verbarrikadiere sie mit dem daneben stehenden Regal.",
         "Mein Herz pocht wie wild und es läuft mir kalt den Rücken runter, als er mich bittet die Tür zu öffnen. In dieser Verfassung bleibe ich bis der Morgen einbricht.",
       ],
+      sound:"sounds/hearbeat.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -1029,6 +1043,7 @@ wehren_2: {
         ""
       
       ],
+      sound:"sounds/running.mp3",
       hasTimer: true,
       timerTime: 12000,
       timerKey: "Ziel_22",
@@ -1050,6 +1065,7 @@ wehren_2: {
         "Überrascht fragt er: <Hast du mich eingeschlossen? Mach bitte die Tür wieder auf.>",
         "<Entschuldige, ich lasse dich morgen wieder raus.>"
       ],
+      sound:"sounds/verbarikadieren.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -1079,14 +1095,95 @@ messer_1: {
 
 
       
+   Ziel_11: {
+      id: "Ziel_11",
+      text: [""],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
 
 
+   Ziel_12: {
+      id: "Ziel_12",
+      text: ["Ich laufe in grossem Bogen um die Leiche zur Tür und öffne sie einen Spalt.",
+        "Ein Polizist mit freundlichem und erleichtertem Gesicht von einem Foto auf und offenbart: <Herr Meier, wir haben Sie gesucht. Es wurde eine Vermisstenmeldung aufgegeben.>",
+        "<Herr polizist, Es ist etwas schreckliches passiert! Sehen Sie–> Als ich mich umdrehe erblicke ich nur den staubigen leeren Holzboden."
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
 
-
-
-
+      
+   Ziel_13: {
+      id: "Ziel_13",
+      text: [""],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
  
+    Ziel_16: {
+      id: "Ziel_16",
+      text: ["Als ich mich umdrehe spüre ich plötzlich einen dumpfen schlag auf den Kopf."],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
     
+   Ziel_17: {
+      id: "Ziel_17",
+      text: ["<Agh!> Ein stechender Schmerz in der Brust raubt mir die Sicht."],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+
+
+
+
+   Ziel_22: {
+      id: "Ziel_22",
+      text: ["Ich höre vier schnelle, hämmernde Schritte, und bevor ich reagieren kann, schlägt mein Kopf, mit stechenden Schmerzen in der Brust, auf dem Boden auf.    "],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+
+
+
+
   }
 ;
  
