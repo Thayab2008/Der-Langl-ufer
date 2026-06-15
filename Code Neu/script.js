@@ -782,6 +782,7 @@ rausgehen_reh: {
         "<Puh! Das war das war das erste Mal, dass ich auf ein Lebewesen schoss.> "
       ],
       sound:"sounds/footsteps_snow.mp3",
+      image:"img/footsteps_snow.jpg",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -797,6 +798,7 @@ dort_lassen_2: {
       id: "dort_lassen_1",
       text: ["Das Feuer ist erloschen und der Raum pechschwarz.<Ist hier jemand?>Niemand antwortet.",
       ],
+      image:"img/hütte_wohnzimmer_fussspuren.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -908,6 +910,7 @@ wehren_2: {
       id: "dort_lassen_1",
       text: ["Vor der Hütte erkenne ich Abdrücke von fremdem Schuhprofil welche in Hütte führen. Ich lasse das Reh schockiert los.",
       ],
+      image:"img/hütte_wohnzimmer.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
