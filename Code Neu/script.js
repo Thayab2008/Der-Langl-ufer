@@ -29,6 +29,7 @@ let schlafen1LampUsed = false;
 let pendingStoryText = [];
 let rausgehen3LampUsed = false;
 
+
 function playSound(soundPath) {
   if (currentSound) {
     currentSound.pause();
@@ -97,6 +98,11 @@ function lampClickHandler() {
 
   
   }
+  if (currentStoryKey === "rechts_1") {
+    pendingStoryText = ["Schnittwunden von messer"];
+    nextStory("ziel");
+    return;
+  }
   if (currentStoryKey === "dort_lassen_3") {
     pendingStoryText=["Eine nasse Spur führt ins Schlafzimmer",
       "Als ich die Spuren zum Schlafzimmer sehe, verbarrikadiere ich schnell die Tür mit dem Regal",
@@ -119,7 +125,11 @@ function lampClickHandler() {
     return;
   }
 
-
+  if (currentStoryKey === "links_2") {
+    pendingStoryText = ["sieht reh"];
+    nextStory("ziel");
+    return;
+  }
   if (currentStoryKey === "rausgehen_3") {
     const mannInfo = document.createElement("p");
     mannInfo.textContent = "Der Mann ist voller Blut und hält ein Messer.";
@@ -130,7 +140,26 @@ function lampClickHandler() {
     }
   }
 
+  if (currentStoryKey === "weg_2") {
+    const leftPathInfo = document.createElement("p");
+    leftPathInfo.textContent = "Links: Das Schild zeigt den Weg ins Tal.";
+    textContainer.appendChild(leftPathInfo);
 
+    const rightPathInfo = document.createElement("p");
+    rightPathInfo.textContent = "Rechts: Das Schild zeigt zur Berghainhöhle";
+    textContainer.appendChild(rightPathInfo);
+  }
+  if (currentStoryKey === "geräusch_2") {
+    const wegweiserInfo = document.createElement("p");
+    wegweiserInfo.textContent = "Warnschild:Höhle nicht betreten";
+    textContainer.appendChild(wegweiserInfo);
+  }
+
+  if (currentStoryKey === "weg_2") {
+    const rechtsInfo = document.createElement("p");
+    rechtsInfo.textContent = "Schnittwunden von Messer, sehr brutal";
+    textContainer.appendChild(rechtsInfo);
+  }
   if (BatteryLife <= 0) lampButton.disabled = true;
 }
 
@@ -146,7 +175,11 @@ function gunClickHandler() {
 
   gunShots--;
 
-  if (currentStoryKey === "kamin_2") {
+  if (currentStoryKey === "umdrehen_1") {
+    nextStory("wald_verstecken");
+  } else if (currentStoryKey === "umdrehen_2") {
+    nextStory("Ziel_5");
+  } else if (currentStoryKey === "kamin_2") {
     nextStory("schiessen_1");
   } else if (currentStoryKey === "schlafen_1") {
     nextStory("schiessen_2");
@@ -252,7 +285,6 @@ const story = {
       next: [
         { key: "links_1", label: "Links." },
         { key: "rechts_1", label: "Rechts." },
-        { key: "hütte_1", label: "zur Hütte." }
       ]
     },
  
@@ -260,6 +292,8 @@ const story = {
       id: "links_1",
       text: ["bekannter weg, erreicht Hütte"
       ],
+      image:"img/bush_forest.png",
+      sound:"sounds/bush.mp3",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -277,15 +311,116 @@ const story = {
         { key: "geräusch_1", label: "Geräusch folgen" }
       ]
     },
- 
+
+    geräusch_1: {
+      id: "links_2",
+      text: ["herausfinden was ihn verfolgte"],
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "geräusch_2", label: "weiter" }
+      ]
+    },
+
+
+   geräusch_2: {
+      id: "geräusch_2",
+      text: ["erreicht höhle und sieht wanderweg zurück"],
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "weg_nehmen_1", label: "Weg nehmen" },
+        { key: "betreten_1", label: "betreten" }
+      ]
+    },
+    weg_nehmen_1: {
+      id: "weg_nehmen_1",
+      text: ["sieht wieder wegweiser"],
+      image:"img/path.png",
+      sound:"sounds/footsteps_snow.mp3",
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "weg_nehmen_2", label: "links" }
+      ]
+    },
+
+    weg_nehmen_2: {
+      id: "weg_nehmen_2",
+      text: ["erreichts untere Hütte"],
+      image:"img/hütte_2.jpeg",
+      sound:"sounds/footsteps_snow.mp3",
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "weg_nehmen_3", label: "weiter" }
+      ]
+    },
+
+  weg_nehmen_3: {
+      id: "weg_nehmen_3",
+      text: ["sieht Lichterdorf",
+        "hört schnelle schritte und <Halt!>"
+      ],
+      image:"img/dorf.png",
+      sound:"sounds/running.mp3",
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "Ziel_3", label: "wegrennen" },
+        {key:"umdrehen_1", label:"umdrehen"}
+      ]
+    },
+     rechts_1: {
+      id: "rechts_1",
+      text: ["Beschreibung ",
+        "sieht totes Reh(dunkel)"
+      ],
+      image:"img/dorf.png",
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "geräusch_2", label: "Weiter" },
+
+      ]
+    },
+  betreten_1: {
+      id: "betreten_1",
+      text: ["Atmosphäre dunkel",
+        "tiefer rein sieht er flackerndes Licht an der Wand",
+
+      ],
+      sound:"sounds/cave.mp3",
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "betreten_2", label: "weiter" }
+      ]
+    },
+
+  betreten_2: {
+      id: "betreten_2",
+      text: ["sieht schlafsack,fackel...",
+        "hört geräusch von eingang -> schlag"
+      ],
+      sound:"sounds/cave.mp3",
+      sound:"sounds/hitting.mp3",
+      hasTimer: false,
+      hasLamp: false,
+      next: [
+        { key: "Ziel_10", label: "weiter" }
+      ]
+    },
+
     hinab_1: {
       id: "hinab_1",
       text: ["hört schnelle Schritte und halt hinter sich."
       ],
+      sound:"sounds/running_snow.mp3",
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "ziel", label: "Wegrennen" },
+        { key: "Ziel_3", label: "Wegrennen" },
         { key: "umdrehen_1", label: "Umdrehen" }
       ]
     },
@@ -295,20 +430,83 @@ const story = {
       text: ["sieht mann. Beschleunigt",
         "...ist wütend...",
         "...hält Messer..."
+      ],
+      sound:"sounds/running_snow.mp3",
+      hasTimer: true,
+      timerTime: 9000,
+      timerKey: "umdrehen_2",
+      startTimerBeforeText: true,
+      textDelay: 3000,
+      hasLamp:false,
+      canUseGun:true,
+      BatteryLife:5
+    },
+  umdrehen_2: {
+      id: "umdrehen_2",
+      text: ["Mann stirbt",
         
       ],
-      hasTimer: true,
-      hasLamp: false,
+      sound:"sounds/gun_shot.mp3",
+      sound:"sounds/man_scream.mp3",
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:true,
+      BatteryLife:5,
+       next: [
+        { key: "Ziel_5", label: "weiter"},
+       ]
+    },
+    wald_verstecken: {
+      id: "wald_verstecken",
+      text: ["Ich drücke den Abzug und renne sofort in den Wald. Eine dunkle Ecke bietet Versteck."],
+      image:"img/bush_forest.png",
+      sound:"sounds/bush.mp3",
+      hasTimer: false,
+      hasLamp: true,
+      canUseGun: false,
+      BatteryLife: 5,
       next: [
-        { key: "ziel_tod_2", label: "weiter" }
+        { key: "versteckt_bleiben", label: "versteckt bleiben"},
+        {key:"angriff", label:"angriff"}
       ]
     },
-
+   versteckt_bleiben: {
+      id: "versteck_bleiben",
+      text: ["er hat dich gefunden",
+        "schlag auf kopf"
+      ],
+      image:"img/bush_forrest.png",
+      sound:"sounds/hitting.mp3",
+      hasTimer: false,
+      hasLamp: true,
+      canUseGun: false,
+      BatteryLife: 5,
+      next: [
+        { key: "Ziel_1", label: "weiter"}
+       
+      ]
+    },
+    angriff: {
+      id: "angriff",
+      text: ["Überaschungsangriff mit Stein",
+        "Erfolg -> er fällt um"
+      ],
+      image:"img/bush_forrest.png",
+      sound:"sounds/hitting.mp3",
+      hasTimer: false,
+      hasLamp: true,
+      canUseGun: false,
+      BatteryLife: 5,
+      next: [
+        { key: "Ziel_2", label: "weiter"},
+     
+      ]
+    },
     geräusch_1: {
       id: "geräusch_1",
       text: ["will herausfinden was ihm die ganze zeit verfolgt. Bleibt stehen"
-    
       ],
+      image:"img/path.png",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -319,9 +517,9 @@ const story = {
     geräusch_2: {
       id: "geräusch_2",
       text: ["erreicht Höhle"
-        
-        
+      
       ],
+      image:"img/cave.png",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -582,13 +780,14 @@ rausgehen_1: {
       text: ["In den Wald hinausblickend stehe ich vor der Tür. Doch da die Wolken den Mond verdecken kann ich nichts erkennen.",
         
       ],
+      image:"img/kamin_1.webp",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
       next: [
         { key: "rausgehen_2", label: "weiter" },
-        {key: "verbarikadieren_1", label: "verbarikadieren"}
+       
       ]
       },
 
@@ -597,6 +796,7 @@ rausgehen_2: {
       text: ["Schultern zuckend kehre ich in die Hütte zurück.",
      
       ],
+      image:"img/kamin_1.webp",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -607,10 +807,11 @@ rausgehen_2: {
       },
 rausgehen_3: {
       id: "rausgehen_3",
-      text: ["er wird müde",
+      text: [
         "Ich gähne und blicke zur schwächer werdenden Flamme.Langsam knarrt die Tür auf.Eine ruhige Männerstimme ertönt: <Hallo! Ist hier wer?",
       
       ],
+      image:"img/kamin_1.webp",
       sound:"sounds/door_sound.mp3",
       hasTimer: false,
       hasLamp:true,
@@ -627,6 +828,8 @@ rausgehen_4: {
         "Er sieht den Mann fast nicht",
         "Im nächsten Augenblick blitzt ein Messer auf–"
       ],
+      image:"img/knife.jpg",
+      sound:"sounds/knife_pull.mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -638,8 +841,8 @@ rausgehen_4: {
 rausgehen_5: {
       id: "rausgehen_5",
       text: ["Ruckartig reisse ich das Gewehr hoch und schiesse.Der rennt um sein Leben. Nur das Loch in der Wand bleibt.Zur Sicherheit verbarrikadiere ich die Tür",
- 
       ],
+      sound:"sounds/running-mp3",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -1097,6 +1300,55 @@ messer_1: {
       },
 
 
+    Ziel_1: {
+      id: "Ziel_1",
+      text: ["tod"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+    Ziel_2: {
+      id: "Ziel_2",
+      text: ["suchtrupp"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+
+    Ziel_4: {
+      id: "Ziel_4",
+      text: ["tod,keine waffe"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+  Ziel_5: {
+      id: "Ziel_5",
+      text: ["überleben"],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
       
    Ziel_11: {
       id: "Ziel_11",
@@ -1337,7 +1589,25 @@ function displayTimer(duration = timerTime, timeoutKey = "verloren"){
 
     timerVariable = setTimeout(() => {
       timerBar.remove();
-      nextStory(timeoutKey);    
+      if (currentStoryKey === "umdrehen_1") {
+        if (hasGun && gunShots > 0) {
+          nextStory("umdrehen_2");
+        } else {
+          pendingStoryText = ["Du hast keine Waffe. Du bist machtlos."];
+          nextStory("Ziel_4");
+        }
+      } else if (currentStoryKey === "umdrehen_2") {
+        if (hasGun && gunShots > 0) {
+          gunShots--;
+          pendingStoryText = ["Du schiesst und Mann stirbt."];
+          nextStory("Ziel_5");
+        } else {
+          pendingStoryText = ["Du hast keine Waffe. Du bist machtlos."];
+          nextStory("Ziel_4");
+        }
+      } else {
+        nextStory(timeoutKey);
+      }
     }, duration); 
 }
 
