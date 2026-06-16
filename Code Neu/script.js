@@ -1291,7 +1291,7 @@ wehren_2: {
         "Überrascht fragt er: <Hast du mich eingeschlossen? Mach bitte die Tür wieder auf.>",
         "<Entschuldige, ich lasse dich morgen wieder raus.>"
       ],
-      image;"img/buch.png",
+      image:"img/buch.png",
       sound:"sounds/verbarikadieren.mp3",
       hasTimer: false,
       hasLamp:false,
