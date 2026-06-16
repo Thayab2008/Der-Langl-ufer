@@ -99,7 +99,7 @@ function lampClickHandler() {
   
   }
   if (currentStoryKey === "rechts_1") {
-    pendingStoryText = ["Schnittwunden von messer"];
+    pendingStoryText = ["Das tote Reh ist von grausamen Schnittwunden übersät."];
     nextStory("ziel");
     return;
   }
@@ -126,7 +126,7 @@ function lampClickHandler() {
   }
 
   if (currentStoryKey === "links_2") {
-    pendingStoryText = ["sieht reh"];
+    pendingStoryText = ["Es ist nur ein Reh"];
     nextStory("ziel");
     return;
   }
@@ -151,7 +151,7 @@ function lampClickHandler() {
   }
   if (currentStoryKey === "geräusch_2") {
     const wegweiserInfo = document.createElement("p");
-    wegweiserInfo.textContent = "Warnschild:Höhle nicht betreten";
+    wegweiserInfo.textContent = "Vor der Höhle steht ein Warnschild: <Betreten verboten!>";
     textContainer.appendChild(wegweiserInfo);
   }
 
@@ -290,7 +290,7 @@ const story = {
  
     links_1: {
       id: "links_1",
-      text: ["bekannter weg, erreicht Hütte"
+      text: ["Je weiter ich dem Weg entlang laufe, desto bekannter erscheint er mir. Nach einer Weile erreiche ich die Steinhütte, bei der ich beim Aufstieg zuerst umkehren wollte. Ich lehne mich seitlich an die verschlossene Holztür zum Durchatmen, als das Gebüsch  hinter mir raschelt. "
       ],
       image:"img/bush_forest.png",
       sound:"sounds/bush.mp3",
@@ -303,7 +303,7 @@ const story = {
  
     links_2: {
       id: "links_2",
-      text: ["Dreht sich um, \"wer ist da\" "],
+      text: ["Ich drehe mich schnell um und blicke in die Finsternis des Waldes. "],
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -314,7 +314,9 @@ const story = {
 
     geräusch_1: {
       id: "links_2",
-      text: ["herausfinden was ihn verfolgte"],
+      text: ["Sofort erinnere ich mich an all diese Geräusche beim Hochlaufen und fühle den Drang, mir zu beweisen, dass ich mir das nicht eingebildet habe. Ich laufe durch den Wald dem Geräusch nach, bis ich es nicht mehr höre. ",
+        "Jetzt habe ich mich verlaufen."
+      ],
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -325,7 +327,8 @@ const story = {
 
    geräusch_2: {
       id: "geräusch_2",
-      text: ["erreicht höhle und sieht wanderweg zurück"],
+      text: ["Nach einer Weile erreiche ich eine pechschwarze Höhle. <Ob ich mich in dieser Höhle ausruhen  oder diesen Wanderweg hier nehmen soll?> Ich schaue von der Höhle weg auf einen schmalen Weg. "],
+     image:"img/cave.png",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -335,7 +338,9 @@ const story = {
     },
     weg_nehmen_1: {
       id: "weg_nehmen_1",
-      text: ["sieht wieder wegweiser"],
+      text: ["Ich folge dem Weg und erreiche schon bald wieder die Kreuzung mit den Wegweisern.",
+        "Der einzige Weg, den ich jetzt noch nicht gegangen bin, ist der linke."
+      ],
       image:"img/path.png",
       sound:"sounds/footsteps_snow.mp3",
       hasTimer: false,
@@ -347,7 +352,7 @@ const story = {
 
     weg_nehmen_2: {
       id: "weg_nehmen_2",
-      text: ["erreichts untere Hütte"],
+      text: ["Ich erreiche wieder die Steinhütte, ein Zeichen, dass ich auf dem richtigen Weg bin."],
       image:"img/hütte_2.jpeg",
       sound:"sounds/footsteps_snow.mp3",
       hasTimer: false,
@@ -359,7 +364,7 @@ const story = {
 
   weg_nehmen_3: {
       id: "weg_nehmen_3",
-      text: ["sieht Lichterdorf",
+      text: ["Ich laufe weiter.Die immer weniger werdenden Bäume geben nun die Sicht auf ferne, wunderschöne, funkelnde Dorflichter, unter einem Vollmond, frei. Ich höre ein entferntes <Halt!> und das leise, eher schnelle Knirschen des Schnees.",
         "hört schnelle schritte und <Halt!>"
       ],
       image:"img/dorf.png",
@@ -373,10 +378,10 @@ const story = {
     },
      rechts_1: {
       id: "rechts_1",
-      text: ["Beschreibung ",
-        "sieht totes Reh(dunkel)"
+      text: ["Beim Gehen bemerke ich abseits des Weges im Dunkeln die Umrisse eines Rehkadavers.",
+        "<Waren das wilde Tiere?>"
       ],
-      image:"img/dorf.png",
+      image:"img/dead_deer.png",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -386,10 +391,11 @@ const story = {
     },
   betreten_1: {
       id: "betreten_1",
-      text: ["Atmosphäre dunkel",
-        "tiefer rein sieht er flackerndes Licht an der Wand",
+      text: ["Mit jedem Schritt hallt ein Echo aus den schaurigen Tiefen der Höhle.Langsam schreite ich in die Finsternis. ",
+        "Weiter hinten sehe ich ein flackerndes Licht an der Wand."
 
       ],
+      image:"img/cave_inside.avif",
       sound:"sounds/cave.mp3",
       hasTimer: false,
       hasLamp: false,
@@ -400,11 +406,12 @@ const story = {
 
   betreten_2: {
       id: "betreten_2",
-      text: ["sieht schlafsack,fackel...",
-        "hört geräusch von eingang -> schlag"
+      text: ["Ich gehe zur Fackel. Unter ihr liegt ein abgenutzter Schlafsack.",
+        "Ich höre ein Geräusch aus Richtung Eingang, und bevor ich mich umdrehen kann, spüre ich einen Schlag auf den Kopf und verliere das Bewusstsein. "
       ],
       sound:"sounds/cave.mp3",
       sound:"sounds/hitting.mp3",
+      image:"img/cave_light.webp",
       hasTimer: false,
       hasLamp: false,
       next: [
@@ -414,7 +421,7 @@ const story = {
 
     hinab_1: {
       id: "hinab_1",
-      text: ["hört schnelle Schritte und halt hinter sich."
+      text: ["Ich laufe weiter. Die immer weniger werdenden Bäume geben nun die Sicht auf ferne, wunderschöne, funkelnde Dorflichter, unter einem Vollmond, frei. Ich höre ein entferntes <Halt!> und das leise, eher schnelle Knirschen des Schnees."
       ],
       sound:"sounds/running_snow.mp3",
       hasTimer: false,
@@ -427,9 +434,8 @@ const story = {
       
     umdrehen_1: {
       id: "umdrehen_1",
-      text: ["sieht mann. Beschleunigt",
-        "...ist wütend...",
-        "...hält Messer..."
+      text: ["<Mal sehen, ob diesmal wirklich jemand meine Aussicht rauben will.>Ich drehe mich um und sehe eine schneller werdende Gestalt. Ich warte und versuche zu erkennen, wer da ruft.",
+        "",
       ],
       sound:"sounds/running_snow.mp3",
       hasTimer: true,
@@ -443,7 +449,8 @@ const story = {
     },
   umdrehen_2: {
       id: "umdrehen_2",
-      text: ["Mann stirbt",
+      text: ["Als ich sicherheitshalber das Gewehr anlege, löst sich ein Schuss. Man hört, wie ein Baum getroffen wird.",
+        "Nachdem ich wieder zu mir komme, liegt wenige Meter vor mir ein Mann mit dem Gesicht nach unten in rot getränktem Schnee.",
         
       ],
       sound:"sounds/gun_shot.mp3",
@@ -458,7 +465,9 @@ const story = {
     },
     wald_verstecken: {
       id: "wald_verstecken",
-      text: ["Ich drücke den Abzug und renne sofort in den Wald. Eine dunkle Ecke bietet Versteck."],
+      text: ["Ich springe schnell ins Gestrüpp und verstecke mich weiter hinten in der Dunkelheit.",
+        "Schritte nähern sich meinem Versteck."
+      ],
       image:"img/bush_forest.png",
       sound:"sounds/bush.mp3",
       hasTimer: false,
@@ -472,7 +481,8 @@ const story = {
     },
    versteckt_bleiben: {
       id: "versteck_bleiben",
-      text: ["er hat dich gefunden",
+      text: ["Ich drücke meine Augen zusammen und halte den Atem an.",
+        "Er muss gerade neben mir stehen.Das letzte, das ich fühle, ist ein Stechen am Nacken und eine angenehme Wärme.",
         "schlag auf kopf"
       ],
       image:"img/bush_forrest.png",
@@ -488,7 +498,7 @@ const story = {
     },
     angriff: {
       id: "angriff",
-      text: ["Überaschungsangriff mit Stein",
+      text: ["Als er in meiner Reichweite steht, fasse ich mir ein Herz,greife einen faustgrossen Stein, springe auf und schlage ihn über seinen Hinterkopf.",
         "Erfolg -> er fällt um"
       ],
       image:"img/bush_forrest.png",
@@ -504,7 +514,8 @@ const story = {
     },
     geräusch_1: {
       id: "geräusch_1",
-      text: ["will herausfinden was ihm die ganze zeit verfolgt. Bleibt stehen"
+      text: ["Sofort erinnere ich mich an all diese Geräusche beim Hochlaufen und fühle den Drang, mir zu beweisen, dass ich mir das nicht eingebildet habe. Ich laufe durch den Wald dem Geräusch nach, bis ich es nicht mehr höre. ",
+        "Jetzt habe ich mich verlaufen."
       ],
       image:"img/path.png",
       hasTimer: false,
@@ -516,7 +527,8 @@ const story = {
 
     geräusch_2: {
       id: "geräusch_2",
-      text: ["erreicht Höhle"
+      text: ["Nach einer Weile erreiche ich eine pechschwarze Höhle. <Ob ich mich in dieser Höhle ausruhen  oder diesen Wanderweg hier nehmen soll?> Ich schaue von der Höhle weg auf einen schmalen Weg. "
+
       
       ],
       image:"img/cave.png",
@@ -780,7 +792,7 @@ rausgehen_1: {
       text: ["In den Wald hinausblickend stehe ich vor der Tür. Doch da die Wolken den Mond verdecken kann ich nichts erkennen.",
         
       ],
-      image:"img/kamin_1.webp",
+      image:"img/mond.jpg",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -878,6 +890,7 @@ verbarikadieren_1: {
       text: ["Während der Nacht rüttelt es mehrmals an der Tür. Doch ich bleibe vor dem Feuer und halte mir die Ohren zu. ",
         "Die ersten Morgenstrahlen brechen ein. Ein höfliches Klopfen ertönt. Ein Polizist winkt erleichtert durch das Fenster."
       ],
+      image:"img/kamin_1.webp",
       sound:"sounds/door_rattling.mp3",
       hasTimer: false,
       hasLamp:true,
@@ -926,6 +939,7 @@ verbarikadieren_1: {
       text: ["Aufgrund der Dunkelheit entschliesse ich mich auf den Morgen zu warten. Ich schliesse das Fenster und setze mich an den Kamin.Kurz darauf klopft es an der Tür.",
        
       ],
+      image:"img/door_inside.png",
       sound:"sounds/window_closing.mp3",
       hasTimer: false,
       hasLamp:true,
@@ -941,6 +955,7 @@ verbarikadieren_1: {
       text: ["Ich öffne die Tür einen Spalt weit. Ein freundlich aussehender Herr blickt mich an. ",
         "Er: <Dürfte ich mich zu ihnen gesellen. Mir frieren bald die Finger ab.>Ich lasse ihn herein.",
       ],
+      image:"img/door_inside_open.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -985,7 +1000,7 @@ rausgehen_reh: {
         "<Puh! Das war das war das erste Mal, dass ich auf ein Lebewesen schoss.> "
       ],
       sound:"sounds/footsteps_snow.mp3",
-      image:"img/footsteps_snow.jpg",
+      image:"img/dead_deer.png",
       hasTimer: false,
       hasLamp:true,
       canUseGun:false,
@@ -998,7 +1013,7 @@ rausgehen_reh: {
 
 
 dort_lassen_2: {
-      id: "dort_lassen_1",
+      id: "dort_lassen_2",
       text: ["Das Feuer ist erloschen und der Raum pechschwarz.<Ist hier jemand?>Niemand antwortet.",
       ],
       image:"img/hütte_wohnzimmer_fussspuren.png",
@@ -1140,6 +1155,7 @@ wehren_2: {
       id: "wegschicken_1",
       text: ["<Tut mir leid ich traue dir nicht.Hier nimm die Taschenlampe. Bleibe einfach auf dem Weg, dann bist du bald im Dorf.>",
       ],
+      image:"img/lamp.png",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -1155,6 +1171,7 @@ wehren_2: {
         "In der Nacht sehe ich Licht durchs Fenster und höre ich, wie jemand um die Hütte schleicht.",
         "Ich bleibe wach bis der Morgen einbricht. "
       ],
+      image:"img/door_inside.png",
       sound:"sounds/verbarikadieren.mp3",
       hasTimer: false,
       hasLamp:false,
@@ -1171,6 +1188,7 @@ wehren_2: {
         "Wir entzünden das Feuer.",
         "Der Mark fragt: <Ich darf doch sicher hier beim Feuer schlafen, oder? >"
       ],
+      image:"img/kaimn_1.webp",
       sound:"sounds/fire.mp3",
       hasTimer: false,
       hasLamp:false,
@@ -1231,6 +1249,7 @@ wehren_2: {
         "Schnell knalle ich die Tür zu und verbarrikadiere sie mit dem daneben stehenden Regal.",
         "Mein Herz pocht wie wild und es läuft mir kalt den Rücken runter, als er mich bittet die Tür zu öffnen. In dieser Verfassung bleibe ich bis der Morgen einbricht.",
       ],
+      image:"img/knife.jpg",
       sound:"sounds/hearbeat.mp3",
       hasTimer: false,
       hasLamp:false,
@@ -1249,6 +1268,7 @@ wehren_2: {
         ""
       
       ],
+      image:"img/kamin_erloschen.png",
       sound:"sounds/running.mp3",
       hasTimer: true,
       timerTime: 12000,
@@ -1271,6 +1291,7 @@ wehren_2: {
         "Überrascht fragt er: <Hast du mich eingeschlossen? Mach bitte die Tür wieder auf.>",
         "<Entschuldige, ich lasse dich morgen wieder raus.>"
       ],
+      image;"img/buch.png",
       sound:"sounds/verbarikadieren.mp3",
       hasTimer: false,
       hasLamp:false,
@@ -1327,7 +1348,9 @@ messer_1: {
 
     Ziel_4: {
       id: "Ziel_4",
-      text: ["tod,keine waffe"],
+      text: ["Der Mann tötet dich"],
+      image:"img/knife.jpg",
+      sound:"sounds/knife_stab.mp3",
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
