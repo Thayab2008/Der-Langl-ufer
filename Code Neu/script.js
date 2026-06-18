@@ -809,7 +809,7 @@ rausgehen_2: {
 rausgehen_3: {
       id: "rausgehen_3",
       text: [
-        "Ich gähne und blicke zur schwächer werdenden Flamme.Langsam knarrt die Tür auf.Eine ruhige Männerstimme ertönt: <Hallo! Ist hier wer?",
+        "Ich gähne und blicke zur schwächer werdenden Flamme. Langsam knarrt die Tür auf. Eine ruhige Männerstimme ertönt: <Hallo! Ist hier wer?>",
       
       ],
       image:"img/kamin_1.webp",
@@ -826,7 +826,7 @@ rausgehen_3: {
 rausgehen_4: {
       id: "rausgehen_4",
       text: ["Der Mann sagt: <Ich bin froh, jemanden zu treffen. Ich irre schon seit Stunden umher.> Augen reibend strecke ich die Hand aus, um ihn zu begrüssen. ",
-        "Er sieht den Mann fast nicht",
+        "Er sieht den Mann fast nicht.",
         "Im nächsten Augenblick blitzt ein Messer auf–"
       ],
       image:"img/knife.jpg",
