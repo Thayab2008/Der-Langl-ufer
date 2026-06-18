@@ -21,6 +21,8 @@ let lampHandlerAttached = false;
 let hasGun = false;
 let gunHandlerAttached = false;
 let gunShots = 3;
+let gunUsedStoryKeys = new Set();
+let creditsScrollInterval = null;
 let currentStoryKey = null;
 let storyRunId = 0;
 let currentSound = null;
@@ -50,7 +52,7 @@ function lampClickHandler() {
     lampButton.disabled = true;
     return;
   }
-
+}
   // Batterie verringern
   BatteryLife--;
 
@@ -92,22 +94,14 @@ function lampClickHandler() {
   if (currentStoryKey === "rausgehen_1") {
     pendingStoryText = ["In rotem Schnee liegt ein totes Reh mit Schnittwunden."];
     nextStory("verbarikadieren_1");
-    return;
-
-  
   }
   if (currentStoryKey === "rausgehen_4") {
     pendingStoryText = ["sieht Mann voll mit blutigen Kleidern und Messer"];
     nextStory("ziel");
-    return;
-  
-
-  
   }
   if (currentStoryKey === "rechts_1") {
     pendingStoryText = ["Das tote Reh ist von grausamen Schnittwunden übersät."];
     nextStory("ziel");
-    return;
   }
   if (currentStoryKey === "dort_lassen_3") {
     pendingStoryText=["Eine nasse Spur führt ins Schlafzimmer.",
@@ -116,28 +110,25 @@ function lampClickHandler() {
     ],
     
     nextStory("wehren_2");
-    return;
   }
 
    if (currentStoryKey === "dort_lassen_2") {
     pendingStoryText = ["Ein überrascht aussehender Mann steht im Wohnzimmer."];
     nextStory("wohnzimmer_mann");
-    return;
   }
 
      if (currentStoryKey === "versuchen_schlafen") {
     pendingStoryText = ["Mark steckt seine rechte Hand schnell hinter den Rücken und sagt: <Ich wollte mir nur ein Buch holen.> Er nimmt ein Buch und geht zurück mit einem <Gute Nacht>."];
     nextStory("buch_1");
-    return;
   }
 
-
-  }
   if (currentStoryKey === "rausgehen_3") {
     const mannInfo = document.createElement("p");
     mannInfo.textContent = "Der Mann ist voller Blut und hält ein Messer.";
     textContainer.appendChild(mannInfo);
     rausgehen3LampUsed = true;
+    
+    
     if (gunButton && hasGun) {
       gunButton.disabled = gunShots <= 0;
     }
@@ -158,7 +149,7 @@ function lampClickHandler() {
     textContainer.appendChild(wegweiserInfo);
   }
 
-  if (currentStoryKey === "weg_2") {
+  if (currentStoryKey === "rechts_1") {
     const rechtsInfo = document.createElement("p");
     rechtsInfo.textContent = "Schnittwunden von Messer, sehr brutal";
     textContainer.appendChild(rechtsInfo);
@@ -173,13 +164,17 @@ function lampClickHandler() {
 
 function gunClickHandler() {
   if (!hasGun) return;
-
-  playSound("sounds/gun_shot.mp3");
+  if (gunUsedStoryKeys.has(currentStoryKey)) return;
 
   if (gunShots <= 0) {
     alert("Du hast keine Schüsse mehr!");
     return;
   }
+
+  gunUsedStoryKeys.add(currentStoryKey);
+  if (gunButton) gunButton.disabled = true;
+
+  playSound("sounds/gun_shot.mp3");
 
   gunShots--;
 
@@ -284,15 +279,15 @@ const story = {
 
     weg_2: {
       id: "weg_2",
-      text: ["Nach einem längeren Marsch, erreiche ich, kann gerade noch die Umrisse eines Wegweisers sehen, doch wegen dem Dickichts der Bäume dringt kaum noch Licht hindurch. Die Schrift ist nicht mehr zu erkennen. <Welcher Weg war es nochmals? Ich kann mich nicht mehr erinnern… Links? Obwohl. Rechts sieht auch gut aus…>"
+      text: ["Nach einem längeren Marsch, kann ich gerade noch die Umrisse eines Wegweisers sehen, doch wegen dem Dickichts der Bäume dringt kaum noch Licht hindurch. Die Schrift ist nicht mehr zu erkennen. <Welcher Weg war es nochmals? Ich kann mich nicht mehr erinnern… Links? Obwohl. Rechts sieht auch gut aus…>"
       ],
       image: "img/weg_2.png",
       sound: "sounds/footsteps_snow.mp3",
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "links_1", label: "Links." },
-        { key: "rechts_1", label: "Rechts." },
+        { key: "links_1", label: "Links" },
+        { key: "rechts_1", label: "Rechts" },
       ]
     },
  
@@ -507,8 +502,7 @@ const story = {
     },
     angriff: {
       id: "angriff",
-      text: ["Als er in meiner Reichweite steht, fasse ich mir ein Herz,greife einen faustgrossen Stein, springe auf und schlage ihn über seinen Hinterkopf.",
-        "Erfolg -> er fällt um"
+      text: ["Als er in meiner Reichweite steht, fasse ich mir ein Herz, greife einen faustgrossen Stein, springe auf und schlage ihn über seinen Hinterkopf.",
       ],
       image:"img/bush_forest.png",
       sound:"sounds/hitting.mp3",
@@ -1346,7 +1340,7 @@ messer_1: {
 
     Ziel_2: {
       id: "Ziel_2",
-      text: ["suchtrupp"],
+      text: ["Ich blicke auf den bewusstlosen Mann hinunter. Als mir bewusst wird, was passiert ist, renne ich schnell ins Dorf hinunter, um Hilfe zu holen. Kurz vor dem Dorf kommen mir Polizisten mit Hunden entgegen. Sie suchen nach mir, da ich als vermisst gemeldet wurde. Schwer keuchend führe ich sie zum Ort des Geschehens, doch selbst nach stundenlangem Suchen bleiben meine Fussabdrücke die einzigen, die im Tiefschnee zu finden sind."],
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
@@ -1357,6 +1351,57 @@ messer_1: {
       ]
       },
 
+     Ziel_3: {
+      id: "Ziel_3",
+      text: ["	<Ha! Es will mir wieder jemand meine schöne Aussicht stehlen! Jetzt, da jemand gerufen hat, ist bestätigt, dass ich es mir nicht eingebildet habe.> Selbstsicher, ohne mich umzudrehen, beschleunige ich. Dieses Mal höre ich das Keuchen hinter mir viel deutlicher. Eine Gruppe Polizisten kommt mir entgegen.",
+        "	<Herr Meier, wir haben Sie schon gesucht.>",
+        "<Meinen Verfolger sucht ihr bestimmt auch.> Ich drehe mich um und blicke auf einen völlig leeren Weg."
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+    Ziel_5: {
+      id: "Ziel_5",
+      text: ["	Panisch, von dem was geschehen ist, renne ich Richtung Dorf. Eine Gruppe Polizisten eilt mir entgegen.",
+        "	<Was war das? Was ist passiert?>",
+        "	Mir steht der blanke Horror ins Gesicht geschrieben.",
+        "	<I‑Ich habe jemanden erschossen!>",
+        "	Während ich verhaftet werde, gehen einige Beamte nachschauen. Kopfschüttelnd kehren sie zurück.",
+        "	<Herr Meier, ich denke, Sie sollten Dr. Neumann diese Geschichte erzählen.>"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+     Ziel_5: {
+      id: "Ziel_5",
+      text: ["	Panisch, von dem was geschehen ist, renne ich Richtung Dorf. Eine Gruppe Polizisten eilt mir entgegen.",
+        "	<Was war das? Was ist passiert?>",
+        "	Mir steht der blanke Horror ins Gesicht geschrieben.",
+        "	<I‑Ich habe jemanden erschossen!>",
+        "	Während ich verhaftet werde, gehen einige Beamte nachschauen. Kopfschüttelnd kehren sie zurück.",
+        "	<Herr Meier, ich denke, Sie sollten Dr. Neumann diese Geschichte erzählen.>"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
     ziel_tod: {
       id: "ziel_tod",
       text: ["Der Mann tötet dich"],
@@ -1371,18 +1416,7 @@ messer_1: {
         {key:"ende", label:"Spiel beenden"}
       ]
       },
-  Ziel_5: {
-      id: "Ziel_5",
-      text: ["überleben"],
-      hasTimer: false,
-      hasLamp:false,
-      canUseGun:false,
-      BatteryLife:5,
-      next: [
-        { key: "start_1", label: "noch mal spielen" },
-        {key:"ende", label:"Spiel beenden"}
-      ]
-      },
+  
       
 
 
@@ -1403,17 +1437,143 @@ messer_1: {
       ]
       },
 
-  
+     Ziel_14: {
+      id: "Ziel_14",
+      text: ["Die ersten Morgenstrahlen brechen an. Ein höfliches Klopfen ertönt. Ein Polizist winkt erleichtert durch das Fenster. Ich öffne die Tür. Zwei Polizisten kommen herein. Sie bemerken das Gewehr und das Loch in der Wand sofort.",
+        "<Herr Meier, geht es Ihnen gut? Was ist passiert>",
+        "<Sie müssen ihn suchen, da war ein Mann mit einem Messer!>",
+        "Die Polizisten schmunzeln.",
+        "<Keine Sorge, wir werden ihn schnappen.>"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+
 
    
 
+     Ziel_15: {
+      id: "Ziel_15",
+      text: ["	Ich öffne die Tür. Zwei Polizisten kommen herein.",
+        "	<Guten Tag, Herr Meier. Sie wurden als vermisst gemeldet. Wir sind hier, um Sie abzuholen.>",
+        "	<Das trifft sich gut. Die Tiere hier klingen fürchterlich.>",
+        "Gemeinsam beginnen wir friedlich unseren Abstieg.",
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
 
 
 
+    Ziel_18: {
+      id: "Ziel_18",
+      text: ["		Ein paar Polizisten klopfen an und treten ein. <Herr Meier? Sie wurden als vermisst gemeldet. Geht es Ihnen gut?> <Sie kommen gerade richtig, in diesem Zimmer dort ist ein Verrückter.> Ein Polizist öffnet die Schlafzimmertür. Es ist leer. Ich betrete verdattert das Zimmer. <Wie kann das sein?>",
+        "Der Polizist spricht beruhigend: <Keine Sorge, ich weiss Bescheid. Wegen dem Verrückten sind wir ja hier.>",
+        
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
 
+    Ziel_19: {
+      id: "Ziel_19",
+      text: ["	Ein lautes Klopfen reisst mich aus den Gedanken. Ein Polizist schaut erleichtert durch ein Fenster herein. Ich öffne die Tür und gehe raus. <Guten Tag, wir sind hier, um Sie abzuholen. Sie wurden als vermisst gemeldet. Zum Glück fiel nicht viel Schnee. Ihre Skispuren waren auch die einzigen, so konnten wir Sie schnell finden.> <Guten Morgen. … Es waren die einzigen Spuren?>",
+               
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
 
+    Ziel_21: {
+      id: "Ziel_21",
+      text: ["Ein paar Polizisten kommen herein. Der vorderste schaut von einem Foto auf und sagt erleichtert <Herr Meier, wir haben Sie schon gesucht. Wie geht es Ihnen?> <Sie kommen genau richtig. In diesem Zimmer ist ein Mann mit einem Messer. Ich habe ihn sicherheitshalber eingesperrt.> Ein Polizist öffnet vorsichtig die Tür und sagt: <Aber Herr Meier, hier ist doch gar niemand.>",
+               
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
+    Ziel_23: {
+      id: "Ziel_23",
+      text: ["Nach einiger Zeit geht die Sonne auf. Eine Gruppe Polizisten kommt herein. <Guten Tag Herr Meier, Sie wurden als vermisst gemeldet, da Sie gestern nicht zurück in die Einrichtung kamen.> <Bitte entschuldigen Sie die Umstände.> <Mark, die Polizei ist hier, um uns abzuholen.> Ich öffne die Tür, doch sehe nichts weiter als ein leeres Bett.",
+               
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+        {key:"ende", label:"Spiel beenden"}
+      ]
+      },
 
-
+    ende: {
+      id: "ende",
+      text: [
+        "CREDITS",
+        "Der Langläufer",
+        "",
+        "Entwickelt von",
+        "Thayab Irshad & Samuel Aregger",
+        "",
+        "Geschichte",
+        "Inspiriert von der Kurzgeschichte „Der Langläufer“ von Franz Hohler.",
+        "",
+        "Programmierung",
+        "Thayab Irshad & Samuel Aregger",
+        "",
+        "Grafik und Design",
+        "Thayab Irshad",
+        "",
+        "Story",
+        "Samuel Aregger",
+        "",
+        "Sound",
+        "Verwendete Sounds aus lizenzfreien Quellen.",
+        "",
+        "Besonderer Dank",
+        "Vielen Dank fürs Spielen!",
+        "",
+        "Ende"
+      ],
+      hasTimer: false,
+      hasLamp:false,
+      canUseGun:false,
+      BatteryLife:5,
+      next: [
+        { key: "start_1", label: "noch mal spielen" },
+      ]
+      },
 
   }
 ;
@@ -1484,6 +1644,19 @@ function displayTextWithTypeWriter(text){
         // Die Funktion muss ausgeführt werden.
         typeNextChar();
     });
+}
+
+function startCreditsScroll() {
+  if (!textContainer) return;
+  textContainer.scrollTop = 0;
+  creditsScrollInterval = setInterval(() => {
+    if (!textContainer.classList.contains("credits-mode")) {
+      clearInterval(creditsScrollInterval);
+      creditsScrollInterval = null;
+      return;
+    }
+    textContainer.scrollTop += 1;
+  }, 50);
 }
 
 /**
@@ -1657,6 +1830,18 @@ async function nextStory(key) {
     }
     textDelay = previousTextDelay;
 
+    if (creditsScrollInterval) {
+      clearInterval(creditsScrollInterval);
+      creditsScrollInterval = null;
+    }
+
+    if (node.id === "ende") {
+      textContainer.classList.add("credits-mode");
+      startCreditsScroll();
+    } else {
+      textContainer.classList.remove("credits-mode");
+    }
+
     // Falls dieser Knoten eine Lampe bereitstellt, merken wir uns, dass der Spieler eine Lampe hat
     if (node.hasLamp) {
       hasLamp = true;
@@ -1689,12 +1874,15 @@ async function nextStory(key) {
     if (hasGun) {
       if (gunButton) {
         gunButton.style.display = "flex";
-        // Button ist nur aktivierbar, wenn an diesem Ort verwendbar und noch Schüsse vorhanden
-        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0 || (currentStoryKey === "kamin_2" && !kamin2LampUsed) || (currentStoryKey === "rausgehen_3" && !rausgehen3LampUsed);
+        // Button ist nur aktivierbar, wenn an diesem Ort verwendbar, noch Schüsse vorhanden sind und der Spieler hier noch nicht geschossen hat
+        gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0 || gunUsedStoryKeys.has(currentStoryKey) || (currentStoryKey === "kamin_2" && !kamin2LampUsed) || (currentStoryKey === "rausgehen_3" && !rausgehen3LampUsed);
         // Listener nur einmal anhängen, wenn noch nicht angehängt
         if (!gunHandlerAttached) {
           gunButton.addEventListener("click", gunClickHandler);
           gunHandlerAttached = true;
+        }
+        if (node.id === "ende") {
+          gunButton.style.display = "none";
         }
       }
     } else {
