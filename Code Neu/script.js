@@ -447,7 +447,7 @@ const story = {
       timerTime: 9000,
       timerKey: "ziel_tod",
       startTimerBeforeText: true,
-      textDelay: 6000,
+      textDelay: 2500,
       hasLamp:false,
       canUseGun:true,
       BatteryLife:5
@@ -1267,7 +1267,7 @@ wehren_2: {
       timerTime: 12000,
       timerKey: "versuchen_schlafen_2",
       startTimerBeforeText: true,
-      textDelay: 6000,
+      textDelay: 2500,
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
