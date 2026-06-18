@@ -447,7 +447,7 @@ const story = {
       timerTime: 9000,
       timerKey: "ziel_tod",
       startTimerBeforeText: true,
-      textDelay: 6000,
+      textDelay: 2500,
       hasLamp:false,
       canUseGun:true,
       BatteryLife:5
@@ -1255,9 +1255,10 @@ wehren_2: {
 
  versuchen_schlafen: {
       id: "versuchen_schlafen",
-      text: ["Langsames Knarzen weckt mich aus dem Halbschlaf. Das Feuer ist zu Glut geworden. Nur Silhouetten sind zu erkennen.",
+      text: ["Langsames Knarzen weckt mich aus dem Halbschlaf.",
+        " Das Feuer ist zu Glut geworden.",
+        " Nur Silhouetten sind zu erkennen.",
         "<Ist etwas? Ich kann dich fast nicht sehen…>",
-        ""
       
       ],
       image:"img/kamin_erloschen.png",
@@ -1266,7 +1267,7 @@ wehren_2: {
       timerTime: 12000,
       timerKey: "versuchen_schlafen_2",
       startTimerBeforeText: true,
-      textDelay: 3000,
+      textDelay: 2500,
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
@@ -1786,6 +1787,9 @@ async function nextStory(key) {
         const text = nodeText[textIdx];
         if(useTypeWriterEffect){
             await displayTextWithTypeWriter(text);
+            if (textIdx != nodeText.length-1) {
+                await new Promise((resolve) => setTimeout(resolve, textDelay));
+            }
         } else {
             await displayTextNormally(text, textIdx == nodeText.length-1);
         }
