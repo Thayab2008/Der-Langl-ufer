@@ -1071,7 +1071,7 @@ toilette_1: {
 
 wehren_1: {
       id: "wehren_1",
-      text: ["verbarrikadiere ich sicherheitshalber Tür und Fenster.Als ich mit dem Gewehrlauf ins Dunkle schlage treffe ich etwas.Nachdem sich meine Augen angepasst haben, blicke ich auf eine ohnmächtige Gestalt mit Messer. Mann verlässt Hütte, Als er einschläft spurt er Turen&Fenster absichern. stechendeSchmereschlagst mit Gewehrlauf ins Dunkle-triffst. ^",
+      text: ["Als ich mit dem Gewehrlauf ins Dunkle schlage treffe ich etwas. Nachdem sich meine Augen angepasst haben, blicke ich auf eine ohnmächtige Gestalt mit einem Messer.",
         "Eilig fessle ich ihn mit einem Vorhang und sperre ihn, mithilfe des Regals unter der Türklinke, im Schlafzimmer ein.",
       ],
       hasTimer: false,
@@ -1090,7 +1090,7 @@ wehren_2: {
         "Ich höre, wie er aufwacht.",
         "Eine raue Stimme von der anderen Seite spricht: <Hey, lass mich raus! Ich war nur auf der Hut, da ich einen Schuss hörte.> ",
         "<Tut mir ja leid, aber ich werde dich vorerst nicht rauslassen.>",
-        "Wutentbrannt schreit er: <Lass mich sofort raus! Rauslassen habe ich gesagt!>Die Tür poltert mehrmals heftig, doch trotz des alten Aussehens gibt sie nicht nach. Ich weiss nicht mehr, wie lange es gedauert hat, doch als der Morgen anbricht, war er still."
+        "Wutentbrannt schreit er: <Lass mich sofort raus! Rauslassen habe ich gesagt!> Die Tür poltert mehrmals heftig, doch trotz des alten Aussehens gibt sie nicht nach. Ich weiss nicht mehr, wie lange es gedauert hat, doch als der Morgen anbricht, war er still."
       ],
       sound:"sounds/door_rattling.mp3",
       hasTimer: false,
