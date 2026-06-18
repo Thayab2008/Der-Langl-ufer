@@ -465,7 +465,7 @@ const story = {
       canUseGun:true,
       BatteryLife:5,
        next: [
-        { key: "Ziel_3", label: "weiter"},
+        { key: "Ziel_3", label: "Weiter"},
        ]
     },
     wald_verstecken: {
@@ -480,8 +480,8 @@ const story = {
       canUseGun: false,
       BatteryLife: 5,
       next: [
-        { key: "versteckt_bleiben", label: "versteckt bleiben"},
-        {key:"angriff", label:"angriff"}
+        { key: "versteckt_bleiben", label: "Versteckt bleiben"},
+        {key:"angriff", label:"Angriff"}
       ]
     },
    versteckt_bleiben: {
@@ -496,7 +496,7 @@ const story = {
       canUseGun: false,
       BatteryLife: 5,
       next: [
-        { key: "ziel_tod", label: "weiter"}
+        { key: "ziel_tod", label: "Weiter"}
        
       ]
     },
@@ -511,7 +511,7 @@ const story = {
       canUseGun: false,
       BatteryLife: 5,
       next: [
-        { key: "Ziel_2", label: "weiter"},
+        { key: "Ziel_2", label: "Weiter"},
      
       ]
     },
@@ -524,7 +524,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "geräusch_2", label: "weiter" }
+        { key: "geräusch_2", label: "Weiter" }
       ]
     },
 
@@ -539,7 +539,7 @@ const story = {
       hasLamp: false,
       next: [
         { key: "geräusch_weg_1", label: "Weg gehen" },
-        {key: "betreten_1", label: "betreten"}
+        {key: "betreten_1", label: "Betreten"}
       ],
       },
 
@@ -551,7 +551,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "geräusch_weg_2", label: "links" }
+        { key: "geräusch_weg_2", label: "Links" }
       ],
     },
     geräusch_weg_2: {
@@ -563,7 +563,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "geräusch_weg_3", label: "weiter hinab" },
+        { key: "geräusch_weg_3", label: "Weiter hinab" },
       ],
       },
       
@@ -574,8 +574,8 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "ziel_3", label: "wegrennen" },
-        {key: "umdrehen_1", label:"umdrehen"}
+        { key: "ziel_3", label: "Wegrennen" },
+        {key: "umdrehen_1", label:"Umdrehen"}
       ],
       },
 
@@ -627,7 +627,7 @@ const story = {
       hasLamp:true,
       BatteryLife:5,
       next: [
-        { key: "weg_1", label: "weg hinab"},
+        { key: "weg_1", label: "Wg hinab"},
         { key: "haus_durchsuchen_1", label: "Haus durchsuchen"}
       ]
       },
@@ -644,7 +644,7 @@ const story = {
       BatteryLife:5,
 
       next: [
-        { key: "weg_1", label: "weg hinab" },
+        { key: "weg_1", label: "Weg hinab" },
         { key: "kamin_1", label: "Kamin anzünden" }
       ]
       },
@@ -662,7 +662,7 @@ const story = {
       hasLamp:true,
       BatteryLife:5,
       next: [
-        { key: "kamin_2", label: "weiter" }
+        { key: "kamin_2", label: "Weiter" }
       ]
       
       },
@@ -703,8 +703,8 @@ const story = {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "schlafen_1", label: "schlafen" },
-        {key: "wach_1", label: "wach bleiben"}
+        { key: "schlafen_1", label: "Schlafen" },
+        {key: "wach_1", label: "Wachbleiben"}
       ]
       
       },
@@ -723,7 +723,7 @@ const story = {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "schlafen_2", label: "weiter" },
+        { key: "schlafen_2", label: "Weiter" },
       ]
         } ,
 
@@ -739,7 +739,7 @@ const story = {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "ziel_tod", label: "weiter" }
+        { key: "ziel_tod", label: "Weiter" }
       ]
       },
 
@@ -771,8 +771,8 @@ const story = {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "rausgehen_1", label: "rausgehen" },
-        {key: "verbarikadieren_1_1", label: "verbarikadieren"}
+        { key: "rausgehen_1", label: "Rausgehen" },
+        {key: "verbarikadieren_1_1", label: "Verbarikadieren"}
       ]
       },
 
@@ -789,7 +789,7 @@ rausgehen_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "rausgehen_2", label: "weiter" },
+        { key: "rausgehen_2", label: "Weiter" },
        
       ]
       },
@@ -805,7 +805,7 @@ rausgehen_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "rausgehen_3", label: "weiter" }
+        { key: "rausgehen_3", label: "Weiter" }
       ]
       },
 rausgehen_3: {
@@ -821,7 +821,7 @@ rausgehen_3: {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "rausgehen_4", label: "weiter" }
+        { key: "rausgehen_4", label: "Weiter" }
       ]
       },
 
@@ -838,7 +838,7 @@ rausgehen_4: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "ziel_tod", label: "weiter" }
+        { key: "ziel_tod", label: "Weiter" }
       ]
       },
 rausgehen_5: {
@@ -851,7 +851,7 @@ rausgehen_5: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "Ziel_14", label: "weiter" }
+        { key: "Ziel_14", label: "Weiter" }
       ]
       },
 
@@ -872,7 +872,7 @@ verbarikadieren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "verbarikadieren_2", label: "weiter" }
+        { key: "verbarikadieren_2", label: "Weiter" }
       ]
       },
 
@@ -888,7 +888,7 @@ verbarikadieren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "Ziel_15", label: "weiter" }
+        { key: "Ziel_15", label: "Weiter" }
       ]
       }, 
       
@@ -901,7 +901,7 @@ verbarikadieren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "verbarikadieren_2", label: "weiter" }
+        { key: "verbarikadieren_2", label: "Weiter" }
       ]
       },    
 
@@ -920,8 +920,8 @@ verbarikadieren_1: {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "drinnen_1", label: "drinnen bleiben" },
-         { key: "rausgehen_reh", label: "rausgehen" }
+        { key: "drinnen_1", label: "Drinnen bleiben" },
+         { key: "rausgehen_reh", label: "Rausgehen" }
       ]
       },
 
@@ -937,7 +937,7 @@ verbarikadieren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "drinnen_2", label: "öffnen" }
+        { key: "drinnen_2", label: "Öffnen" }
       ]
       },  
 
@@ -952,7 +952,7 @@ verbarikadieren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "drinnen_3", label: "weiter" }
+        { key: "drinnen_3", label: "Weiter" }
       ]
       },  
 
@@ -966,7 +966,7 @@ verbarikadieren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "drinnen_4", label: "weiter" }
+        { key: "drinnen_4", label: "Weiter" }
       ]
       },  
 
@@ -980,7 +980,7 @@ drinnen_4: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "ziel_tod", label: "weiter" }
+        { key: "ziel_tod", label: "Weiter" }
       ]
       },  
 
@@ -999,7 +999,7 @@ rausgehen_reh: {
       BatteryLife:5,
       next: [
   
-        {key:"hütte_bringen", label:"vor Hütte bringen"}
+        {key:"hütte_bringen", label:"Vor Hütte bringen"}
       ]
       },  
 
@@ -1014,7 +1014,7 @@ dort_lassen_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "dort_lassen_3", label: "betreten" }
+        { key: "dort_lassen_3", label: "Betreten" }
       ]
       },
       
@@ -1044,7 +1044,7 @@ schlafzimmer: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "wehren_2", label: "weiter" }
+        { key: "wehren_2", label: "Weiter" }
       ]
       },
 
@@ -1065,7 +1065,7 @@ toilette_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "wehren_1", label: "wehren" }
+        { key: "wehren_1", label: "Wehren" }
       ]
       },
 
@@ -1079,7 +1079,7 @@ wehren_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "wehren_2", label: "weiter" }
+        { key: "wehren_2", label: "Weiter" }
       ]
       },
 
@@ -1098,7 +1098,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "Ziel_18", label: "weiter" }
+        { key: "Ziel_18", label: "Weiter" }
       ]
       },
 
@@ -1112,7 +1112,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "dort_lassen_1", label: "weiter" }
+        { key: "dort_lassen_1", label: "Weiter" }
       ]
       },
   
@@ -1126,7 +1126,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "dort_lassen_2", label: "weiter" }
+        { key: "dort_lassen_2", label: "Weiter" }
       ]
       },   
 
@@ -1138,8 +1138,8 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "wegschicken_1", label: "wegschicken" },
-        {key:"bleiben_lassen_1", label:"bleiben lassen"}
+        { key: "wegschicken_1", label: "Wegschicken" },
+        {key:"bleiben_lassen_1", label:"Bleiben lassen"}
       ]
       },
 
@@ -1153,7 +1153,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "wegschicken_2", label: "weiter" }
+        { key: "wegschicken_2", label: "Weiter" }
       ]
       },
 
@@ -1170,7 +1170,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "Ziel_19", label: "weiter" }
+        { key: "Ziel_19", label: "Weiter" }
       ]
       },
 
@@ -1187,8 +1187,8 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "erlauben", label: "erlauben" },
-        {key:"anderes_zimmer_1", label:"in anderes Zimmer schicken"}
+        { key: "erlauben", label: "Erlauben" },
+        {key:"anderes_zimmer_1", label:"In ein anderes Zimmer schicken"}
       ]
       },
 
@@ -1201,7 +1201,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "ziel_tod", label: "weiter" }
+        { key: "ziel_tod", label: "Weiter" }
       ]
       },
 
@@ -1217,7 +1217,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "anderes_zimmer_2", label: "weiter" }
+        { key: "anderes_zimmer_2", label: "Weiter" }
       ]
       },
 
@@ -1230,8 +1230,8 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "mann_schauen_1", label: "nach Mark schauen" },
-        {key:"versuchen_schlafen", label:"versuchen zu schlafen"}
+        { key: "mann_schauen_1", label: "Nach Mark schauen" },
+        {key:"versuchen_schlafen", label:"Versuchen zu schlafen"}
       ]
       },
 
@@ -1248,7 +1248,7 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "Ziel_21", label: "weiter" }
+        { key: "Ziel_21", label: "Weiter" }
       ]
       },
 
@@ -1282,7 +1282,7 @@ versuchen_schlafen_2: {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "ziel_tod", label: "weiter" }
+        { key: "ziel_tod", label: "Weiter" }
         
       ]
       },
@@ -1301,7 +1301,7 @@ versuchen_schlafen_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "Ziel_23", label: "weiter" }
+        { key: "Ziel_23", label: "Weiter" }
       ]
       }, 
 
@@ -1318,7 +1318,7 @@ messer_1: {
       canUseGun:true,
       BatteryLife:5,
       next: [
-        { key: "Ziel_12", label: "weiter" }
+        { key: "Ziel_12", label: "Weiter" }
         
       ]
       },
