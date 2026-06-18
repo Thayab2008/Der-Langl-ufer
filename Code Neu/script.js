@@ -652,7 +652,8 @@ const story = {
    kamin_1: {
       id: "kamin_1",
       text: ["Mithilfe von Streichhölzern und Holz, welche neben dem Kamin liegen, entzünde ich in Rekordzeit ein erleuchtendes Feuer.",
-        "<Endlich etwas zum Aufwärmen>Ich nehme ein altes Buch vom Regal und setze mich zum Lesen. Doch bevor ich lesen kann, nicke ich ein.",
+        "<Endlich etwas zum Aufwärmen>",
+        "Ich nehme ein altes Buch vom Regal und setze mich zum Lesen. Doch bevor ich lesen kann, nicke ich ein.",
       
       ],
       image:"img/kamin_1.webp",
@@ -667,7 +668,7 @@ const story = {
       },
  kamin_2: {
       id: "kamin_2",
-      text: ["Durch mehrfache laute Knalle werde ich aus dem Schlaf gerissen.Ich folge dem Geräusch ins Schlafzimmer und entdecke ein Fenster, das vom Wind auf- und zugeschlagen wird.",
+      text: ["Durch mehrfache laute Knalle werde ich aus dem Schlaf gerissen. Ich folge dem Geräusch ins Schlafzimmer und entdecke ein Fenster, das vom Wind auf- und zugeschlagen wird.",
         "Ich fange das Fenster ein und blicke in die Kälte hinaus. ",
       ],
       image:"img/kamin_2.png",
@@ -742,7 +743,7 @@ const story = {
 
   schiessen_2: {
       id: "schiessen_2",
-      text: ["Im letzten Moment rolle ich zur Seite, greife nach dem Gewehr und drücke ab.Der Mann sackt zusammen und bleibt reglos liegen. Eine rote Lache breitet sich aus."],
+      text: ["Im letzten Moment rolle ich zur Seite, greife nach dem Gewehr und drücke ab. Der Mann sackt zusammen und bleibt reglos liegen. Eine rote Lache breitet sich aus."],
       hasTimer: false,
       image:"img/gun.avif",
       sound:"sounds/gun_shot.mp3",
@@ -1329,7 +1330,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1345,7 +1345,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1363,7 +1362,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1381,7 +1379,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1395,7 +1392,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1415,7 +1411,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1433,7 +1428,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1453,7 +1447,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1471,7 +1464,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1486,7 +1478,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1501,7 +1492,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1515,7 +1505,6 @@ messer_1: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "start_1", label: "noch mal spielen" },
         {key:"ende", label:"Spiel beenden"}
       ]
       },
@@ -1547,15 +1536,15 @@ messer_1: {
         "Besonderer Dank",
         "Vielen Dank fürs Spielen!",
         "",
-        "Ende"
+        "Ende",
+
+        "Zum nochmal spielen drücke Ctrl+R"
       ],
       hasTimer: false,
       hasLamp:false,
       canUseGun:false,
       BatteryLife:5,
-      next: [
-        { key: "start_1", label: "noch mal spielen" },
-      ]
+  
       },
 
   }
