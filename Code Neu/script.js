@@ -52,7 +52,7 @@ function lampClickHandler() {
     lampButton.disabled = true;
     return;
   }
-}
+
   // Batterie verringern
   BatteryLife--;
 
@@ -160,6 +160,7 @@ function lampClickHandler() {
     textContainer.appendChild(waldInfo);
   }
   if (BatteryLife <= 0) lampButton.disabled = true;
+}
 
 
 function gunClickHandler() {
@@ -418,7 +419,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "Ziel_10", label: "weiter" }
+        { key: "ziel_tod", label: "weiter" }
       ]
     },
 
@@ -539,7 +540,7 @@ const story = {
       hasLamp: false,
       next: [
         { key: "geräusch_weg_1", label: "Weg gehen" },
-        {key: "geräusch_betreten_1", label: "betreten"}
+        {key: "betreten_1", label: "betreten"}
       ],
       },
 
@@ -728,7 +729,7 @@ const story = {
       text: ["Kaum lege ich mich neben das kleine Feuer, schlafe ich ein.",
         "...",
         "Auf einmal wache ich auf. Das Feuer ist schon ausgebrannt und der Raum stockdunkel. Nur das Knarren der alten Holzdielen ist zu hören.",
-        "Eine raue Stimme durchbricht die Stille: <Schlaf gut>"
+      
         
       ],
       image:"img/schlafen_1.png",
