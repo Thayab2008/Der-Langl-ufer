@@ -151,7 +151,7 @@ function lampClickHandler() {
 
   if (currentStoryKey === "rechts_1") {
     const rechtsInfo = document.createElement("p");
-    rechtsInfo.textContent = "Schnittwunden von Messer, sehr brutal";
+    rechtsInfo.textContent = "Das tote Reh ist von grausamen Schnittwunden übersät.";
     textContainer.appendChild(rechtsInfo);
   }
    if (currentStoryKey === "links_2") {
@@ -182,7 +182,7 @@ function gunClickHandler() {
   if (currentStoryKey === "umdrehen_1") {
     nextStory("wald_verstecken");
   } else if (currentStoryKey === "umdrehen_2") {
-    nextStory("Ziel_5");
+    nextStory("Ziel_3");
   } else if (currentStoryKey === "kamin_2") {
     nextStory("schiessen_1");
   } else if (currentStoryKey === "schlafen_1") {
@@ -376,7 +376,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "Ziel_3", label: "wegrennen" },
+        { key: "Ziel_5", label: "wegrennen" },
         {key:"umdrehen_1", label:"umdrehen"}
       ]
     },
@@ -419,7 +419,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "ziel_tod", label: "weiter" }
+        { key: "Ziel_2", label: "weiter" }
       ]
     },
 
@@ -449,7 +449,7 @@ const story = {
       startTimerBeforeText: true,
       textDelay: 6000,
       hasLamp:false,
-      canUseGun:false,
+      canUseGun:true,
       BatteryLife:5
     },
   umdrehen_2: {
@@ -465,7 +465,7 @@ const story = {
       canUseGun:true,
       BatteryLife:5,
        next: [
-        { key: "Ziel_5", label: "weiter"},
+        { key: "Ziel_3", label: "weiter"},
        ]
     },
     wald_verstecken: {
@@ -545,7 +545,7 @@ const story = {
 
     geräusch_weg_1: {
       id: "geräusch_weg_1",
-      text: ["Ich folge dem Weg und erreiche schon bald wieder die Kreuzung mit den Wegweisern.Der einzige Weg, den ich jetzt noch nicht gegangen bin, ist der linke.",
+      text: ["Ich folge dem Weg und erreiche schon bald wieder die Kreuzung mit den Wegweisern. Der einzige Weg, den ich jetzt noch nicht gegangen bin, ist der linke.",
 
       ],
       hasTimer: false,
@@ -574,26 +574,11 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "ziel_5", label: "wegrennen" },
-        {key: "geräusch_umdrehen_1", label:"umdrehen"}
+        { key: "ziel_3", label: "wegrennen" },
+        {key: "umdrehen_1", label:"umdrehen"}
       ],
       },
 
-
-    geräusch_umdrehen_1: {
-      id: "geräusch_umdrehen_1",
-      text: ["sieht mann. Beschleunigt",
-        "...ist wütend...",
-        "...hält Messer..."
-        
-      ],
-      image: "img/weihnachtsbaumBild.jpg",
-      hasTimer: true,
-      hasLamp: false,
-      next: [
-         { key: "ziel_tod", label: "weiter" }
-      ],
-      },
 
 
 
@@ -1740,10 +1725,10 @@ function displayTimer(duration = timerTime, timeoutKey = "verloren"){
         if (hasGun && gunShots > 0) {
           gunShots--;
           pendingStoryText = ["Du schiesst und Mann stirbt."];
-          nextStory("Ziel_5");
+          nextStory("Ziel_3");
         } else {
           pendingStoryText = ["Du hast keine Waffe. Du bist machtlos."];
-          nextStory("Ziel_4");
+          nextStory("ziel_tod");
         }
       } else {
         nextStory(timeoutKey);
@@ -1864,7 +1849,7 @@ async function nextStory(key) {
     // Gewehr-Button anzeigen, wenn man ein Gewehr hat (bleibt dann sichtbar)
     if (hasGun) {
       if (gunButton) {
-        gunButton.style.display = currentStoryKey === "umdrehen_1" ? "none" : "flex";
+        gunButton.style.display = "flex";
         // Button ist nur aktivierbar, wenn an diesem Ort verwendbar, noch Schüsse vorhanden sind und der Spieler hier noch nicht geschossen hat
         gunButton.disabled = !(node.canUseGun === true) || gunShots <= 0 || gunUsedStoryKeys.has(currentStoryKey) || (currentStoryKey === "kamin_2" && !kamin2LampUsed) || (currentStoryKey === "rausgehen_3" && !rausgehen3LampUsed);
         // Listener nur einmal anhängen, wenn noch nicht angehängt
