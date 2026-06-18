@@ -212,7 +212,7 @@ const story = {
       id: "introduction",
       text: [
         "Ein Langläufer machte sich am Abend auf den Weg durch die verschneite Landschaft. Er hatte die belebte Loipe verlassen, weil er Ruhe suchte und den vielen Menschen entkommen wollte. Doch je höher er in das Tal hinauf stampfte, desto sicherer war er, dass er nicht mehr allein war. Hinter ihm knirschte der Schnee im gleichen Takt wie unter seinen eigenen Skiern. Er hörte das leise Aufsetzen von Skistöcken und glaubte, dass ihm jemand Schritt für Schritt folgte.",
-        "Obwohl er immer müder wurde, lief er weiter.Bei der Steinhütte, die er erreichte, wollte er eigentlich umkehren, doch die Schritte hinter ihm ließen ihn nicht anhalten. Mit jedem Meter schien der unbekannte Läufer näher zu kommen. Manchmal glaubte er sogar, dessen Atem hinter sich zu hören. Er wagte es nicht, sich umzudrehen. In seinem Kopf gab es keinen Zweifel daran, dass dort jemand war und nur auf den richtigen Moment wartete, um ihn zu überholen und seine Aussicht rauben will.",
+        "Obwohl er immer müder wurde, lief er weiter. Bei der Steinhütte, die er erreichte, wollte er eigentlich umkehren, doch die Schritte hinter ihm ließen ihn nicht anhalten. Mit jedem Meter schien der unbekannte Läufer näher zu kommen. Manchmal glaubte er sogar, dessen Atem hinter sich zu hören. Er wagte es nicht, sich umzudrehen. In seinem Kopf gab es keinen Zweifel daran, dass dort jemand war und nur auf den richtigen Moment wartete, um ihn zu überholen und seine Aussicht rauben will.",
         "Das Geräusch hinter ihm schien immer näher zu kommen. Er war überzeugt, dass sein Verfolger nur wenige Schritte entfernt war, und sammelte seine letzten Kräfte, um vor ihm zu bleiben. Als er schließlich die Alphütte erreichte, die er sich als Ziel gesetzt hatte, blieb er stehen und drehte sich um",
         "Doch hinter ihm war niemand. Als er realisierte, dass sein Verfolger nie existiert hatte übermannten ihn Erschöpfung und Verwirrung. Dann verließen ihn seine Kräfte und er sank bewusstlos in den Schnee."
 
@@ -447,7 +447,7 @@ const story = {
       timerTime: 9000,
       timerKey: "ziel_tod",
       startTimerBeforeText: true,
-      textDelay: 2500,
+      textDelay: 6000,
       hasLamp:false,
       canUseGun:true,
       BatteryLife:5
@@ -1267,7 +1267,7 @@ wehren_2: {
       timerTime: 12000,
       timerKey: "versuchen_schlafen_2",
       startTimerBeforeText: true,
-      textDelay: 2500,
+      textDelay: 6000,
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
