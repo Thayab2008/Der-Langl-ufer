@@ -618,7 +618,7 @@ const story = {
 
  hütte_1: {
       id: "hütte_1",
-      text: ["Ich stelle die Skier gegen die verwitterte Wand der Hütte. Beim, angewöhnten, höflichen, doch offensichtlich unnötigen, Anklopfen der Tür geht sie langsam auf. Geduckt betrete ich langsam das Haus.<Hallo, ist jemand Zuhause?",
+      text: ["Ich stelle die Skier gegen die verwitterte Wand der Hütte. Beim, angewöhnten, höflichen, doch offensichtlich unnötigen, Anklopfen der Tür geht sie langsam auf. Geduckt betrete ich langsam das Haus.<Hallo, ist jemand Zuhause?>",
         "Nachdem die Finsternis nicht geantwortet hat, taste ich mich langsam in den Eingang. Auf dem Schrank ertaste ich eine Taschenlampe. Ihr Flackern verrät mir, dass sie nicht mehr viel Akku hat. Um sie zu schonen, schalte ich sie aus. ",
       ],
       image:"img/hütte_1.png",
@@ -634,7 +634,7 @@ const story = {
 
    haus_durchsuchen_1: {
       id: "haus_durchsuchen_1",
-      text: ["Beim Durchsuchen entdecke ich ein geladenes Gewehr im hinteren Teil des Wohnzimmers. <Für eine solch kleine Hütte hat sie erstaunlich viele Zimmer --  eine Toilette, ein Schlafzimmer, eine Küche und ein Wohnzimmer mit Kamin. Hier lebte bestimmt ein Jäger.",
+      text: ["Beim Durchsuchen entdecke ich ein geladenes Gewehr im hinteren Teil des Wohnzimmers. <Für eine solch kleine Hütte hat sie erstaunlich viele Zimmer --  eine Toilette, ein Schlafzimmer, eine Küche und ein Wohnzimmer mit Kamin. Hier lebte bestimmt ein Jäger.>",
         
       ],
       image:"img/durchsucht_haus.png",
@@ -670,6 +670,8 @@ const story = {
       id: "kamin_2",
       text: ["Durch mehrfache laute Knalle werde ich aus dem Schlaf gerissen. Ich folge dem Geräusch ins Schlafzimmer und entdecke ein Fenster, das vom Wind auf- und zugeschlagen wird.",
         "Ich fange das Fenster ein und blicke in die Kälte hinaus. ",
+        "<Am liebsten würde ich jetzt etwas sehen können.>",
+        "<...und hunger habe ich auch."
       ],
       image:"img/kamin_2.png",
       sound:"sounds/window_bang.mp3",
@@ -841,7 +843,7 @@ rausgehen_4: {
       },
 rausgehen_5: {
       id: "rausgehen_5",
-      text: ["Ruckartig reisse ich das Gewehr hoch und schiesse.Der rennt um sein Leben. Nur das Loch in der Wand bleibt.Zur Sicherheit verbarrikadiere ich die Tür.",
+      text: ["Ruckartig reisse ich das Gewehr hoch und schiesse. Der rennt um sein Leben. Nur das Loch in der Wand bleibt. Zur Sicherheit verbarrikadiere ich die Tür.",
       ],
       sound:"sounds/running.mp3",
       hasTimer: false,
@@ -849,7 +851,7 @@ rausgehen_5: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "ziel_14", label: "weiter" }
+        { key: "Ziel_14", label: "weiter" }
       ]
       },
 
@@ -892,7 +894,7 @@ verbarikadieren_1: {
       
   verbarikadieren_1_1: {
       id: "verbarikadieren_1_1",
-      text: ["Der Schrei löst in mir ein mulmiges Gefühl aus und zur Sicherheit verbarrikadiere ich die Tür"
+      text: ["Der Schrei löst in mir ein mulmiges Gefühl aus und zur Sicherheit verbarrikadiere ich die Tür."
       ],
       hasTimer: false,
       hasLamp:true,
@@ -925,7 +927,7 @@ verbarikadieren_1: {
 
     drinnen_1: {
       id: "drinnen_1",
-      text: ["Aufgrund der Dunkelheit entschliesse ich mich, auf den Morgen zu warten. Ich schliesse das Fenster und setze mich an den Kamin.Kurz darauf klopft es an der Tür.",
+      text: ["Aufgrund der Dunkelheit entschliesse ich mich, auf den Morgen zu warten. Ich schliesse das Fenster und setze mich an den Kamin. Kurz darauf klopft es an der Tür.",
        
       ],
       image:"img/door_inside.png",
@@ -942,7 +944,7 @@ verbarikadieren_1: {
     drinnen_2: {
       id: "drinnen_2",
       text: ["Ich öffne die Tür einen Spalt weit. Ein freundlich aussehender Herr blickt mich an. ",
-        "Er: <Dürfte ich mich zu ihnen gesellen? Mir frieren bald die Finger ab.>Ich lasse ihn herein.",
+        "Er: <Dürfte ich mich zu ihnen gesellen? Mir frieren bald die Finger ab.> Ich lasse ihn herein.",
       ],
       image:"img/door_inside_open.png",
       hasTimer: false,
@@ -997,14 +999,14 @@ rausgehen_reh: {
       BatteryLife:5,
       next: [
   
-        {key:"hütte_bringen", label:"vör Hütte bringen"}
+        {key:"hütte_bringen", label:"vor Hütte bringen"}
       ]
       },  
 
 
 dort_lassen_2: {
       id: "dort_lassen_2",
-      text: ["Das Feuer ist erloschen und der Raum pechschwarz.<Ist hier jemand?>Niemand antwortet.",
+      text: ["Das Feuer ist erloschen und der Raum pechschwarz. <Ist hier jemand?> Niemand antwortet.",
       ],
       image:"img/hütte_wohnzimmer_fussspuren.png",
       hasTimer: false,
@@ -1012,14 +1014,14 @@ dort_lassen_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "dort_lassen_3", label: "weiter" }
+        { key: "dort_lassen_3", label: "betreten" }
       ]
       },
       
 dort_lassen_3: {
       id: "dort_lassen_3",
-      text: ["Jede Faser meines Körpers spannt sich an.<Ich weiss, dass jemand hier ist!>",
-        "Beim Eintreten höre ich ein Platschen unter meinem Fuss.<…Die Pfütze war vorher noch nicht da…>",
+      text: ["Jede Faser meines Körpers spannt sich an. <Ich weiss, dass jemand hier ist!>",
+        "Beim Eintreten höre ich ein Platschen unter meinem Fuss. <…Die Pfütze war vorher noch nicht da…>",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -1056,14 +1058,14 @@ toilette_1: {
       ],
       hasTimer: true,
       timerTime: 9000,
-      timerKey: "toilette_2",
+      timerKey: "ziel_tod",
       startTimerBeforeText: true,
       textDelay: 3000,
       hasLamp:true,
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "ziel_tod", label: "wehren" }
+        { key: "wehren_1", label: "wehren" }
       ]
       },
 
