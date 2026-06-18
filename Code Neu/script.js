@@ -106,8 +106,8 @@ function lampClickHandler() {
   if (currentStoryKey === "dort_lassen_3") {
     pendingStoryText=["Eine nasse Spur führt ins Schlafzimmer.",
       "Als ich die Spuren zum Schlafzimmer sehe, verbarrikadiere ich schnell die Tür mit dem Regal.",
-    playSound("sounds/verbarikadieren.mp3")
-    ],
+  
+    ]
     
     nextStory("wehren_2");
   }
@@ -254,7 +254,7 @@ const story = {
       image: "img/wacht_auf.png",
       next: [
         { key: "weg_1", label: "Weg hinab" },
-        { key: "hütte_1", label: "zur Alphütte" }
+        { key: "hütte_1", label: "Zur Alphütte" }
       ]
     },
 
@@ -324,7 +324,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "geräusch_2", label: "weiter" }
+        { key: "geräusch_2", label: "Weiter" }
       ]
     },
 
@@ -337,7 +337,7 @@ const story = {
       hasLamp: false,
       next: [
         { key: "weg_nehmen_1", label: "Weg nehmen" },
-        { key: "betreten_1", label: "betreten" }
+        { key: "betreten_1", label: "Betreten" }
       ]
     },
     weg_nehmen_1: {
@@ -350,7 +350,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "weg_nehmen_2", label: "links" }
+        { key: "weg_nehmen_2", label: "Links" }
       ]
     },
 
@@ -362,7 +362,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "weg_nehmen_3", label: "weiter" }
+        { key: "weg_nehmen_3", label: "Weiter" }
       ]
     },
 
@@ -376,8 +376,8 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "Ziel_5", label: "wegrennen" },
-        {key:"umdrehen_1", label:"umdrehen"}
+        { key: "Ziel_5", label: "Wegrennen" },
+        {key:"umdrehen_1", label:"Umdrehen"}
       ]
     },
      rechts_1: {
@@ -404,7 +404,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "betreten_2", label: "weiter" }
+        { key: "betreten_2", label: "Weiter" }
       ]
     },
 
@@ -419,7 +419,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "Ziel_2", label: "weiter" }
+        { key: "Ziel_2", label: "Weiter" }
       ]
     },
 
@@ -1145,7 +1145,7 @@ wehren_2: {
 
   wegschicken_1: {
       id: "wegschicken_1",
-      text: ["<Tut mir leid, ich traue dir nicht.Hier, nimm die Taschenlampe. Bleibe einfach auf dem Weg, dann bist du bald im Dorf.>",
+      text: ["<Tut mir leid, ich traue dir nicht. Hier, nimm die Taschenlampe. Bleibe einfach auf dem Weg, dann bist du bald im Dorf.>",
       ],
       image:"img/lamp.png",
       hasTimer: false,
@@ -1230,14 +1230,14 @@ wehren_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "mann_schauen_1", label: "nach Mann schauen" },
+        { key: "mann_schauen_1", label: "nach Mark schauen" },
         {key:"versuchen_schlafen", label:"versuchen zu schlafen"}
       ]
       },
 
       mann_schauen_1: {
       id: "mann_schauen_1",
-      text: ["Mich plagt ein schlechtes Gewissen.Als ich die Tür öffne und Licht vom Kamin reinscheint, erstarrt der Mann erschrocken mit einem Messer in der Hand.",
+      text: ["Mich plagt ein schlechtes Gewissen. Als ich die Tür öffne und Licht vom Kamin reinscheint, erstarrt der Mann erschrocken mit einem Messer in der Hand.",
         "Schnell knalle ich die Tür zu und verbarrikadiere sie mit dem danebenstehenden Regal.",
         "Mein Herz pocht wie wild und es läuft mir kalt den Rücken runter, als er mich bittet die Tür zu öffnen. In dieser Verfassung bleibe ich, bis der Morgen anbricht.",
       ],
@@ -1275,7 +1275,7 @@ wehren_2: {
       },
 versuchen_schlafen_2: {
       id: "versuchen_schlafen_2",
-      text: ["Ich höre vier schnelle, hämmernde Schritte, und bevor ich reagieren kann, schlägt mein Kopf, mit stechenden Schmerzen in der Brust, auf dem Boden auf",
+      text: ["Ich höre vier schnelle, hämmernde Schritte, und bevor ich reagieren kann, schlägt mein Kopf, mit stechenden Schmerzen in der Brust, auf dem Boden auf.",
       ],
       hasTimer: false,
       hasLamp:true,
@@ -1301,7 +1301,7 @@ versuchen_schlafen_2: {
       canUseGun:false,
       BatteryLife:5,
       next: [
-        { key: "buch_2", label: "weiter" }
+        { key: "Ziel_23", label: "weiter" }
       ]
       }, 
 
@@ -1472,7 +1472,7 @@ messer_1: {
 
     Ziel_19: {
       id: "Ziel_19",
-      text: ["	Ein lautes Klopfen reisst mich aus den Gedanken. Ein Polizist schaut erleichtert durch ein Fenster herein. Ich öffne die Tür und gehe raus. <Guten Tag, wir sind hier, um Sie abzuholen. Sie wurden als vermisst gemeldet. Zum Glück fiel nicht viel Schnee. Ihre Skispuren waren auch die einzigen, so konnten wir Sie schnell finden.> <Guten Morgen. … Es waren die einzigen Spuren?>",
+      text: ["Ein lautes Klopfen reisst mich aus den Gedanken. Ein Polizist schaut erleichtert durch ein Fenster herein. Ich öffne die Tür und gehe raus. <Guten Tag, wir sind hier, um Sie abzuholen. Sie wurden als vermisst gemeldet. Zum Glück fiel nicht viel Schnee. Ihre Skispuren waren auch die einzigen, so konnten wir Sie schnell finden.> <Guten Morgen. … Es waren die einzigen Spuren?>",
                
       ],
       hasTimer: false,
