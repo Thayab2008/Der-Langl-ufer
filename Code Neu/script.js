@@ -574,7 +574,7 @@ const story = {
       hasTimer: false,
       hasLamp: false,
       next: [
-        { key: "ziel_3", label: "Wegrennen" },
+        { key: "Ziel_3", label: "Wegrennen" },
         {key: "umdrehen_1", label:"Umdrehen"}
       ],
       },
@@ -627,7 +627,7 @@ const story = {
       hasLamp:true,
       BatteryLife:5,
       next: [
-        { key: "weg_1", label: "Wg hinab"},
+        { key: "weg_1", label: "Weg hinab"},
         { key: "haus_durchsuchen_1", label: "Haus durchsuchen"}
       ]
       },
